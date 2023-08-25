@@ -1,7 +1,12 @@
 package com.quiral.ventanas;
 
+import com.quiral.util.UtilControlTablas;
+import com.quiral.util.UtilFechas;
 import com.quiral.util.UtilMonitor;
 import com.quiral.util.UtilPropiedades;
+import java.time.LocalDate;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Teo
@@ -10,17 +15,39 @@ public class CalendarioAgenda extends javax.swing.JFrame {
     
     UtilPropiedades propiedades = new UtilPropiedades();
     UtilMonitor monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
-
+    
     public CalendarioAgenda() {
         initComponents();
         inicializar();
+        inicializarTablas();
+        llenarCalendario();
     }
     
     private void inicializar(){
         monitor = new UtilMonitor(this, jPanel1, 0, 0);
+        
+        int altoEfectivoFrame = monitor.obtenerAltoUtilizableMaximoEnMonitorDinamico() - 50;
+        jPanel1.setBounds(0, 0, jPanel1.getWidth(), altoEfectivoFrame);
         monitor.redimensionarReposicionarVentana();
+        int nuevoAltoTabla = altoEfectivoFrame - jspCalendario.getY() - 5;
+        jspCalendario.setBounds(jspCalendario.getX(), jspCalendario.getY(), jspCalendario.getWidth(), nuevoAltoTabla);
     }
 
+    private void llenarCalendario(){
+        List<LocalDate> lista = UtilFechas.obtenerRangoDesdeHoy(0);
+        DefaultTableModel modelo = (DefaultTableModel)jtCalendario.getModel();
+        String[] fila = {"-", "-", "-"};
+        for(int i = 0; i < lista.size(); i++){
+            fila[0] = lista.get(i).toString();
+            modelo.addRow(fila);
+        }
+    }
+    
+    private void inicializarTablas(){
+        String[] columnas = {"Fecha", "Dia", "Obs."};
+        jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(columnas));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,8 +59,8 @@ public class CalendarioAgenda extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jspCalendario = new javax.swing.JScrollPane();
+        jtCalendario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log In");
@@ -45,15 +72,15 @@ public class CalendarioAgenda extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Calendario Interactivo");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(11, 14, 370, 17);
+        jLabel1.setBounds(0, 10, 540, 17);
 
-        jScrollPane1.setViewportView(jTable1);
+        jspCalendario.setViewportView(jtCalendario);
 
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 50, 370, 220);
+        jPanel1.add(jspCalendario);
+        jspCalendario.setBounds(10, 110, 520, 50);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 390, 280);
+        jPanel1.setBounds(0, 0, 540, 360);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -99,7 +126,7 @@ public class CalendarioAgenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jspCalendario;
+    private javax.swing.JTable jtCalendario;
     // End of variables declaration//GEN-END:variables
 }
