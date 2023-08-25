@@ -6,12 +6,12 @@ import com.quiral.util.UtilPropiedades;
 /**
  * @author Teo
  */
-public class Logueo extends javax.swing.JFrame {
+public class Menu extends javax.swing.JFrame {
     
     UtilPropiedades propiedades = new UtilPropiedades();
     UtilMonitor monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
 
-    public Logueo() {
+    public Menu() {
         initComponents();
         inicializar();
     }
@@ -19,7 +19,6 @@ public class Logueo extends javax.swing.JFrame {
     private void inicializar(){
         monitor = new UtilMonitor(this, jPanel1, 0, 0);
         monitor.redimensionarReposicionarVentana();
-        jLabelVersion.setText("Version " + propiedades.getVersion() + " - Utilizando " + propiedades.getJDKVersion());
     }
 
     /**
@@ -33,10 +32,6 @@ public class Logueo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jtxtContra = new javax.swing.JTextField();
-        jLabelVersion = new javax.swing.JLabel();
-        jbAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log In");
@@ -48,41 +43,13 @@ public class Logueo extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Calendario Interactivo");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(11, 14, 320, 17);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel3.setText("Contraseña :");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(7, 51, 110, 17);
-        jPanel1.add(jtxtContra);
-        jtxtContra.setBounds(120, 50, 140, 23);
-
-        jLabelVersion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelVersion.setText("jLabel2");
-        jPanel1.add(jLabelVersion);
-        jLabelVersion.setBounds(10, 100, 330, 17);
-
-        jbAceptar.setText("OK");
-        jbAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAceptarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbAceptar);
-        jbAceptar.setBounds(268, 50, 70, 23);
+        jLabel1.setBounds(11, 14, 370, 17);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 350, 130);
+        jPanel1.setBounds(0, 0, 390, 280);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
-        if(jtxtContra.getText().trim().equals("1966")){
-            CalendarioAgenda.main();
-            this.dispose();
-        }
-    }//GEN-LAST:event_jbAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,30 +68,27 @@ public class Logueo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Logueo().setVisible(true);
+                new Menu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelVersion;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jbAceptar;
-    private javax.swing.JTextField jtxtContra;
     // End of variables declaration//GEN-END:variables
 }
