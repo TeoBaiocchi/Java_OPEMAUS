@@ -1,6 +1,5 @@
 package com.teo.aus.lecturaescriturasimultaneaarchivos;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -12,11 +11,9 @@ import java.util.logging.Logger;
 public class HiloArchivos implements Runnable {
     
     int nroHilo;
-    BufferedReader lector;
     
-    public HiloArchivos(int i, BufferedReader lector){
+    public HiloArchivos(int i){
         nroHilo = i;
-        this.lector = lector;
     }
     
     @Override
@@ -24,24 +21,27 @@ public class HiloArchivos implements Runnable {
         String linea = "";
         
         try {
-            linea = lector.readLine();
+            //BufferedReader es thread-safe, por lo que no necesito verificar que los hilos accediendo
+            //la variable dedicada a leer el bulk no se pisen entre sí.
+            linea = ManejadorArchivos.lectorBulk.readLine();
         } catch (IOException ex) {
-            Logger.getLogger(HiloArchivos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            System.out.println("[ERROR - HILO N°" + nroHilo + "] Algo salio mal leyendo la linea.");
+            }
+       
+            if(linea == null){
+                System.out.println("[WARNING - HILO N°" + nroHilo +"]: No se logro leer una linea del bulk. Finalizando Hilo");
+                ManejadorArchivos.bulkLeidoCompleto = true;
+                return;
+            }
         
-        if(linea == null){
-            System.out.println("No se logro leer una linea del bulk. Cerrando hilo nro " + nroHilo);
-            //TODO: Revisar que no tenga que hacer algo adicional para cerrar el hilo
-            return;
-        }
+            System.out.println("[LOG - HILO N°" + nroHilo + "] Linea leida: '" + linea + "'");
         
-        System.out.println("La linea leida por hilo nro: " + nroHilo + " es: '" + linea + "'");
-        
-        File archivo = new File(linea);
-        if(archivo.isFile()){
-            ManejadorArchivos.borrarArchivo(archivo);
-        } else {
-            ManejadorArchivos.crearArchivo(archivo);
+            File archivo = new File(linea);
+            if(archivo.isFile()){
+                ManejadorArchivos.borrarArchivo(archivo);
+            } else {
+                ManejadorArchivos.crearArchivo(archivo);
+            }
         }
-    }
+    
 }
