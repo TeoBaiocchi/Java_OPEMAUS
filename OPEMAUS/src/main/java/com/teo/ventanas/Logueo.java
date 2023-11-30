@@ -50,9 +50,9 @@ public class Logueo extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("Contraseña :");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(7, 51, 100, 16);
+        jLabel3.setBounds(10, 55, 100, 16);
         jPanel1.add(jtxtContra);
-        jtxtContra.setBounds(120, 50, 140, 22);
+        jtxtContra.setBounds(120, 50, 140, 30);
 
         jbAceptar.setText("OK");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -61,10 +61,10 @@ public class Logueo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbAceptar);
-        jbAceptar.setBounds(268, 50, 70, 23);
+        jbAceptar.setBounds(270, 55, 70, 23);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 350, 100);
+        jPanel1.setBounds(0, 0, 390, 110);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

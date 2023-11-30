@@ -1,6 +1,10 @@
 package com.teo.ventanas;
 
+import com.teo.util.UtilControlTablas;
+import com.teo.util.UtilFechas;
 import com.teo.util.UtilGraficoVentanas;
+import java.time.LocalDate;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Teo
@@ -17,8 +21,21 @@ public class Menu extends javax.swing.JFrame {
     private void inicializar(){
         monitor = new UtilGraficoVentanas(this, jPanel1, 0, 0);
         monitor.redimensionarReposicionarVentana();
+        
+        inicializarCalendario();
     }
 
+    private void inicializarCalendario(){
+        
+        jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"FECHA", "Actividades"}));
+        DefaultTableModel modelo = (DefaultTableModel) jtCalendario.getModel();
+        for(LocalDate fecha : UtilFechas.obtenerRangoDesdeHoy(30)){
+            Object[] fila = new Object[2];
+            fila[0] = fecha;
+            fila[1] = "Libre";
+            modelo.addRow(fila);
+        }    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,6 +47,11 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jspCalendario = new javax.swing.JScrollPane();
+        jtCalendario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log In");
@@ -38,16 +60,44 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
+        jLabel1.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Calendario Interactivo");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(11, 14, 370, 17);
+        jLabel1.setBounds(11, 14, 370, 16);
+
+        jButton1.setText("Listado Personas");
+        jPanel1.add(jButton1);
+        jButton1.setBounds(240, 60, 120, 23);
+
+        jButton2.setText("Nueva Tarea");
+        jPanel1.add(jButton2);
+        jButton2.setBounds(20, 110, 120, 23);
+
+        jButton3.setText("Nueva Persona");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3);
+        jButton3.setBounds(20, 60, 120, 23);
+
+        jspCalendario.setViewportView(jtCalendario);
+
+        jPanel1.add(jspCalendario);
+        jspCalendario.setBounds(20, 180, 360, 250);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 390, 280);
+        jPanel1.setBounds(0, 0, 400, 450);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        AbmPersona.main(new String[]{""});
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,7 +138,12 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jspCalendario;
+    private javax.swing.JTable jtCalendario;
     // End of variables declaration//GEN-END:variables
 }
