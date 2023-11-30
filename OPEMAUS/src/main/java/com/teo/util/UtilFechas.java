@@ -1,13 +1,21 @@
 package com.teo.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.text.DateFormatter;
 
 /**
- * @author ciggy
+ * @author Teo
  */
 public class UtilFechas {
+    
+    public static DateFormat FORMATO_DISPLAY = new SimpleDateFormat("dd/MM/yy");
+    public static DateFormatter FORMATTER_DISPLAY = new DateFormatter(FORMATO_DISPLAY);
+    public static DateFormat FORMATO_EDIT = new SimpleDateFormat("dd/MM/yyyy");
+    public static DateFormatter FORMATTER_EDIT = new DateFormatter(FORMATO_EDIT);
     
     public static LocalDate obtenerFechaHoy(){
        return LocalDate.now();

@@ -25,14 +25,12 @@ public class UtilGraficoVentanas {
     public void setPosX(int x){
         if(x < 0){
             posX = 0;
-            //TODO: Entrada de log
         }
     }
     
     public void setPosY(int y){
         if(y < 0){
             posY = 0;
-            //TODO: Entrada de log
         }
     }
     
@@ -118,6 +116,7 @@ public class UtilGraficoVentanas {
     public void redimensionarReposicionarVentana(){    
         frame.setBounds(posX, 0, 0, 0);
         frame.repaint();
+        
         //Es necesario pintar el frame en la posicion en la que va a estar, para poder determinar el monitor al que pertenece
         int screenHeight = obtenerScreenHeightMonitorDinamico(); 
         int screenWidth = obtenerScreenWidthMonitorDinamico();
