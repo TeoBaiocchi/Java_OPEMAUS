@@ -155,5 +155,7 @@ public class UtilGraficoVentanas {
         //Paso 2: instanciar un nuevo UtilGraficoVentanas para ese nuevo frame con todos los datos
     
     }
+
+
    
 }

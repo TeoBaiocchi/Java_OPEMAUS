@@ -32,6 +32,8 @@ public class OPEMAUS {
         VERSION.add("0.0.2");
         VERSION_CHANGELOG.add("Agregado de dependencias gson y se agrega la lectura y escritura de clases en el util de archivos.\nFormato de fecha agregado\nOtras mejoras menores");
         
+        VERSION.add("0.0.3");
+        VERSION_CHANGELOG.add("Util de ventanas mejorado. Maps agregados para manejar con facilidad campos vacios/invalidos");
     }
     
         
