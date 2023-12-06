@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -21,11 +22,15 @@ import javax.swing.JTextField;
  */
 public class UtilControlVentanas {
     public HashMap<JTextField, String> CAMPOS_INPUT_ESTANDAR = new HashMap<JTextField, String>();
+    public HashMap<JTextArea, String> CAMPOS_INPUT_TEXTAREA = new HashMap<JTextArea, String>();
     public List<JCheckBox> CAMPOS_INPUT_CHECKBOX = new ArrayList<JCheckBox>();
     public HashMap<JFormattedTextField, String> CAMPOS_INPUT_FORMATTED = new HashMap<JFormattedTextField, String>();
     
     public void vaciarCampos(){
         CAMPOS_INPUT_ESTANDAR.forEach((campo, valor) -> {
+            campo.setText("");
+        });
+        CAMPOS_INPUT_TEXTAREA.forEach((campo, valor) -> {
             campo.setText("");
         });
         CAMPOS_INPUT_FORMATTED.forEach((campo, valor) -> {
@@ -45,14 +50,28 @@ public class UtilControlVentanas {
             k = entry.getKey();
             v = entry.getValue();
         } catch(IllegalStateException ise) {
-            // this usually means the entry is no longer in the map.
             throw new ConcurrentModificationException(ise);
         }
         if(k.getText().trim().equals("")){
-            JDialogAvisoGenerico dialog = new JDialogAvisoGenerico(padre, true, "Por favor ingrese un " + v);
+            JDialogAvisoGenerico dialog = new JDialogAvisoGenerico(padre, true, "Por favor complete el campo '" + v + "'");
             return false;
         }
     }
+        for(Map.Entry<JTextArea, String> entry : CAMPOS_INPUT_TEXTAREA.entrySet()) {
+            JTextArea k;
+            String v;
+            try {
+                k = entry.getKey();
+                v = entry.getValue();
+            } catch(IllegalStateException ise) {
+                throw new ConcurrentModificationException(ise);
+            }
+            if(k.getText().trim().equals("")){
+                JDialogAvisoGenerico dialog = new JDialogAvisoGenerico(padre, true, "Por favor complete el campo '" + v + "'");
+                return false;
+            }
+        }    
+     
         return true;
     }
     

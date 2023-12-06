@@ -1,5 +1,6 @@
 package com.teo.opemaus;
 import com.teo.util.UtilArchivos;
+import com.teo.ventanas.JDialogAvisoGenerico;
 import com.teo.ventanas.Logueo;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class OPEMAUS {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         UtilArchivos.verificarDirectorioRaiz();
+
         OPEMAUS.cargarVersiones(); 
         Logueo.main(args);
     }
@@ -34,6 +36,10 @@ public class OPEMAUS {
         
         VERSION.add("0.0.3");
         VERSION_CHANGELOG.add("Util de ventanas mejorado. Maps agregados para manejar con facilidad campos vacios/invalidos");
+        
+        VERSION.add("0.0.4");
+        VERSION_CHANGELOG.add("Soporte de carga y eliminacion de direcciones a traves del abm de persona. Multiples util y un srv agregado."
+                + "\nCorrecciones generales mayores.");
     }
     
         

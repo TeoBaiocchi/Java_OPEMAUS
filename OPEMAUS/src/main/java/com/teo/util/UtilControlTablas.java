@@ -2,6 +2,7 @@ package com.teo.util;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.SwingConstants.TRAILING;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +17,7 @@ public class UtilControlTablas {
      /**
      * De la misma forma que la version no-generic de esta funcion, recibe un array de titulos y
      * devuelve un modelo correspondiente. Pero no es necesario definir class o canEdit porque
-     * asigna valores por defecto "object" y "false" del tama�o del array de titulos
+     * asigna valores por defecto "object" y "false" del tamanio del array de titulos
      * 
      * @param stringArray
      * @return defaultTableModel
@@ -60,6 +61,13 @@ public class UtilControlTablas {
         });
         return m;
     }
+
+    public static void eliminarFilaSeleccionada(JTable tabla) {
+        int fila = tabla.getSelectedRow();
+        if(fila != -1){
+            ((DefaultTableModel)tabla.getModel()).removeRow(fila);
+        }
+    }
     
     public void posicionarJSPDebajoDeTXT(JScrollPane jsp, JTextField jtxt, int altura) {
         jsp.setBounds(jtxt.getX(), jtxt.getY() + jtxt.getHeight(), jtxt.getWidth(), altura);
@@ -80,5 +88,11 @@ public class UtilControlTablas {
     public void posicionarResultadosSobreJSP(JScrollPane jsp, JLabel label, int desfase) {
         label.setBounds(jsp.getX(), jsp.getY() - desfase, jsp.getWidth() - 2, label.getHeight());
         label.setHorizontalAlignment(TRAILING);
+    }
+    
+    public static int obtenerValorNumericoDeTabla(JTable tabla, int columna){
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        int fila = tabla.getSelectedRow();
+        return Integer.parseInt(modelo.getValueAt(fila, columna).toString());
     }
 }

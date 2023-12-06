@@ -7,6 +7,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -32,6 +33,9 @@ public class UtilGraficoVentanas {
         if(y < 0){
             posY = 0;
         }
+    }
+    
+    public UtilGraficoVentanas(){
     }
     
     public UtilGraficoVentanas(Frame frame, JPanel panelReferencia, int posX, int posY){
@@ -154,6 +158,11 @@ public class UtilGraficoVentanas {
         //Paso 2: Corroborar que el nuevo frame sea, en ambas dimensiones, menor al frame padre
         //Paso 2: instanciar un nuevo UtilGraficoVentanas para ese nuevo frame con todos los datos
     
+    }
+
+    public void resizearDialog(JDialog dialog, Frame padre, JPanel panelReferencia) {
+        dialog.setBounds(0, 0, panelReferencia.getWidth(), panelReferencia.getHeight() + padre.getInsets().top + padre.getInsets().bottom);
+        dialog.setLocationRelativeTo(padre);
     }
 
 

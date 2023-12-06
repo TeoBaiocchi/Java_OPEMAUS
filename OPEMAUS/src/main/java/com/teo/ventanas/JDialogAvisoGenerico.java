@@ -14,8 +14,7 @@ public class JDialogAvisoGenerico extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         jlabelTexto.setText(texto);
-        this.setBounds(0, 0, jPanel1.getWidth(), jPanel1.getHeight() + this.getInsets().top + this.getInsets().bottom);
-        setLocationRelativeTo(parent);
+        monitor.resizearDialog(this, parent, jPanel1);
         this.setVisible(true);
     }
 
