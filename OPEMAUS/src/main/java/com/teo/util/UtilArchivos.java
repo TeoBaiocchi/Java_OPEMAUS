@@ -3,13 +3,18 @@ package com.teo.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.teo.modelos.Persona;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,8 +22,7 @@ import java.util.List;
  */
 public class UtilArchivos {
     
-    private static String pathRaiz = System.getProperty("user.home") + File.separator + "OPEMDATA";
-    
+    public static String DIRECTORIO_RAIZ = System.getProperty("user.home") + File.separator + "OPEMDATA";
     public static String DIRECTORIO_PERSONAS = "PERSONAS";
     public static String DIRECTORIO_DIRECCIONES = "DIRECCIONES";
     
@@ -36,7 +40,7 @@ public class UtilArchivos {
     }
     
     public static boolean crearDirectorio(String path){
-        File archivo = new File(pathRaiz + path);
+        File archivo = new File(DIRECTORIO_RAIZ + path);
         if (!archivo.exists()){
             return archivo.mkdirs();
         } else {
@@ -53,7 +57,7 @@ public class UtilArchivos {
     }
     
     public static void crearArchivo(String path){
-        crearArchivo(new File(pathRaiz + File.separator + path));
+        crearArchivo(new File(DIRECTORIO_RAIZ + File.separator + path));
     }
     public static void crearArchivo(File archivo){
         try {
@@ -73,7 +77,7 @@ public class UtilArchivos {
     }
     
     public static void escribirArchivo(String path, String contenido){
-        escribirArchivo(new File(pathRaiz + File.separator + path), contenido);
+        escribirArchivo(new File(DIRECTORIO_RAIZ + File.separator + path), contenido);
     }
     public static void escribirArchivo(File archivo, String contenido){
         contenido = contenido.trim();
@@ -109,7 +113,7 @@ public class UtilArchivos {
     }
 
     public static List<String> obtenerArchivosEnDirectorio(String path, boolean recortarExtension){
-        File dir = new File(pathRaiz + File.separator + path);
+        File dir = new File(DIRECTORIO_RAIZ + File.separator + path);
         List<String> ret = new ArrayList<String>();
         for(File archivo : dir.listFiles()){
             if(recortarExtension){
@@ -117,6 +121,35 @@ public class UtilArchivos {
             } else {
                 ret.add(archivo.getName());
             }
+        }
+        return ret;
+    }
+    
+    /**
+     * Toma un archivo y devuelve sus lineas en un string.
+     * De haber algun problema, devuelve lo que se haya podido leer, o string vacio.
+     * @param archivo
+     * @return 
+     */
+    public static String leerContenidoArchivo(File archivo) {
+        BufferedReader reader;
+        String ret = "";
+        
+        try {
+            reader = new BufferedReader(new FileReader(archivo));
+        } catch (FileNotFoundException ex) {
+            //TODO mensaje error
+            return ret;
+        }
+        
+        String linea;
+        try {
+            while ((linea = reader.readLine()) != null) {
+                ret = ret + linea;
+            }
+        } catch (IOException ex) {
+            //TODO mensaje error
+            return ret;
         }
         return ret;
     }

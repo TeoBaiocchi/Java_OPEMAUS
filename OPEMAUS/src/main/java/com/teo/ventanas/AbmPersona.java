@@ -2,10 +2,10 @@ package com.teo.ventanas;
 
 import com.teo.modelos.Direccion;
 import com.teo.modelos.Persona;
-import com.teo.service.DireccionSrv;
+import com.teo.modelos.Telefono;
 import com.teo.util.UtilArchivos;
 import com.teo.util.UtilControlTablas;
-import com.teo.util.UtilControlVentanas;
+import com.teo.util.UtilControlCampos;
 import com.teo.util.UtilFechas;
 import com.teo.util.UtilGraficoVentanas;
 import java.io.File;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class AbmPersona extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
-    UtilControlVentanas control = new UtilControlVentanas();
+    UtilControlCampos control;
     
     public AbmPersona() {
         initComponents();
@@ -35,13 +35,19 @@ public class AbmPersona extends javax.swing.JFrame {
     private int TABLA_DIRECCIONES_CALLE = 1;
     private int TABLA_DIRECCIONES_NRO = 2;
     private int TABLA_DIRECCIONES_PISO = 3;
+    private int TABLA_DIRECCIONES_OBS = 4;
+    private int TABLA_TELEFONO_ID = 0;
+    private int TABLA_TELEFONO_NRO = 1;
+    private int TABLA_TELEFONO_TIPO = 2;
+    private int TABLA_TELEFONO_OBS = 3;
     private void generarTablas(){
-        jtDirecciones.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Calle", "Nro", "Piso"}));
+        jtDirecciones.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Calle", "Nro", "Piso", "Obs."}));
+        jtTelefonos.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Nro", "Tipo", "Obs."}));
     }
     
     private void generarControlVentana(){
-        control.CAMPOS_INPUT_ESTANDAR.put(jtxtApellido, "Apellido");
-        control.CAMPOS_INPUT_ESTANDAR.put(jtxtNombre, "Nombre");
+        control.CAMPOS_INPUT_ESTANDAR.put("Apellido", jtxtApellido);
+        control.CAMPOS_INPUT_ESTANDAR.put("Nombre", jtxtNombre);
         control.CAMPOS_INPUT_CHECKBOX.add(jcbFechaNoRecordar);
         control.CAMPOS_INPUT_CHECKBOX.add(jcbFechaDesconocida);
     }
@@ -51,6 +57,7 @@ public class AbmPersona extends javax.swing.JFrame {
 
         jbgGenero = new javax.swing.ButtonGroup();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jtxtNombre = new javax.swing.JTextField();
         jLabelTitulo = new javax.swing.JLabel();
@@ -73,8 +80,8 @@ public class AbmPersona extends javax.swing.JFrame {
         jbDireccionEditar = new javax.swing.JButton();
         jPanelTelefono = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jspTelefonos = new javax.swing.JScrollPane();
+        jtTelefonos = new javax.swing.JTable();
         jbTelefonoEliminar = new javax.swing.JButton();
         jbTelefonoNuevo = new javax.swing.JButton();
         jbTelefonoEditar = new javax.swing.JButton();
@@ -203,10 +210,10 @@ public class AbmPersona extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setLayout(null);
 
-        jScrollPane2.setViewportView(jTable2);
+        jspTelefonos.setViewportView(jtTelefonos);
 
-        jPanel3.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 10, 410, 90);
+        jPanel3.add(jspTelefonos);
+        jspTelefonos.setBounds(10, 10, 410, 90);
 
         jbTelefonoEliminar.setText("Eliminar");
         jPanel3.add(jbTelefonoEliminar);
@@ -335,13 +342,10 @@ public class AbmPersona extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbDireccionEditarActionPerformed
     
-    
-    
     private void jbDireccionEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDireccionEliminarActionPerformed
-        int idDireccion = UtilControlTablas.obtenerValorNumericoDeTabla(jtDirecciones, TABLA_DIRECCIONES_ID); 
-        DireccionSrv.eliminar(idDireccion);
-        UtilControlTablas.eliminarFilaSeleccionada(jtDirecciones);
+         UtilControlTablas.eliminarFilaSeleccionada(jtDirecciones);
     }//GEN-LAST:event_jbDireccionEliminarActionPerformed
+    
     private void ventanaNuevaDireccion(){
         AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, 0);
         Direccion direccion = ventana.mostrarDialogEsperarResultado();
@@ -352,11 +356,22 @@ public class AbmPersona extends javax.swing.JFrame {
     
     public void agregarDireccionTabla(Direccion direccion){
         DefaultTableModel modelo = (DefaultTableModel) jtDirecciones.getModel();
-        Object[] fila = new Object[4];
+        Object[] fila = new Object[5];
         fila[TABLA_DIRECCIONES_ID] = direccion.getId();
         fila[TABLA_DIRECCIONES_CALLE] = direccion.getCalle();
         fila[TABLA_DIRECCIONES_NRO] = direccion.getNro();
         fila[TABLA_DIRECCIONES_PISO] = direccion.getPiso();
+        fila[TABLA_DIRECCIONES_OBS] = direccion.getObservaciones();
+        modelo.addRow(fila);
+    }
+    
+    public void agregarTelefonoTabla(Telefono telefono){
+        DefaultTableModel modelo = (DefaultTableModel) jtTelefonos.getModel();
+        Object[] fila = new Object[4];
+        fila[TABLA_TELEFONO_ID] = telefono.getId();
+        fila[TABLA_TELEFONO_NRO] = telefono.getNro();
+        fila[TABLA_TELEFONO_TIPO] = telefono.getTipo();
+        fila[TABLA_DIRECCIONES_OBS] = telefono.getObservaciones();
         modelo.addRow(fila);
     }
     /**
@@ -372,6 +387,7 @@ public class AbmPersona extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -385,10 +401,8 @@ public class AbmPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelOtros;
     private javax.swing.JPanel jPanelTelefono;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbDireccionEditar;
@@ -409,7 +423,9 @@ public class AbmPersona extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrbSexoMujer;
     private javax.swing.JRadioButton jrbSexoOtro;
     private javax.swing.JScrollPane jspDirecciones;
+    private javax.swing.JScrollPane jspTelefonos;
     private javax.swing.JTable jtDirecciones;
+    private javax.swing.JTable jtTelefonos;
     private javax.swing.JTextField jtxtApellido;
     private javax.swing.JFormattedTextField jtxtFormattedFechaNacimiento;
     private javax.swing.JTextField jtxtNombre;

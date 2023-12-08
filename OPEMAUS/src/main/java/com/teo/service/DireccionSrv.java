@@ -49,5 +49,22 @@ public class DireccionSrv {
         }
         return idMax;
     }
+
+    /**
+     * Dada una id, intenta ubicar y parsear el archivo correspondiente en una direccion.
+     * En caso de no encontrarla, devuelve null.
+     * @param id
+     * @return Direccion o Null si no existe.
+     */
+    public static Direccion obtenerDireccionById(int id) {
+        String path = UtilArchivos.DIRECTORIO_RAIZ + File.separator + UtilArchivos.DIRECTORIO_DIRECCIONES + File.separator + id + ".txt";
+        File archivo = new File(path);
+        if(!archivo.isFile()){
+            return null;
+        }
+        Direccion ret = new Direccion();
+        ret = convertirDesdeGsonString(UtilArchivos.leerContenidoArchivo(archivo));
+        return ret;
+    }
     
 }
