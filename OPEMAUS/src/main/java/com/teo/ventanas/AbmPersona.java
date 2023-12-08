@@ -1,5 +1,6 @@
 package com.teo.ventanas;
 
+import com.teo.modelos.Correo;
 import com.teo.modelos.Direccion;
 import com.teo.modelos.Persona;
 import com.teo.modelos.Telefono;
@@ -17,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class AbmPersona extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
-    UtilControlCampos control;
+    UtilControlCampos control = new UtilControlCampos();
     
     public AbmPersona() {
         initComponents();
@@ -31,25 +32,31 @@ public class AbmPersona extends javax.swing.JFrame {
         generarTablas();
     }
     
-    private int TABLA_DIRECCIONES_ID = 0;
-    private int TABLA_DIRECCIONES_CALLE = 1;
-    private int TABLA_DIRECCIONES_NRO = 2;
-    private int TABLA_DIRECCIONES_PISO = 3;
-    private int TABLA_DIRECCIONES_OBS = 4;
-    private int TABLA_TELEFONO_ID = 0;
-    private int TABLA_TELEFONO_NRO = 1;
-    private int TABLA_TELEFONO_TIPO = 2;
-    private int TABLA_TELEFONO_OBS = 3;
+    private final int TABLA_DIRECCIONES_ID = 0;
+    private final int TABLA_DIRECCIONES_CALLE = 1;
+    private final int TABLA_DIRECCIONES_NRO = 2;
+    private final int TABLA_DIRECCIONES_PISO = 3;
+    private final int TABLA_DIRECCIONES_OBS = 4;
+    private final int TABLA_TELEFONO_ID = 0;
+    private final int TABLA_TELEFONO_NRO = 1;
+    private final int TABLA_TELEFONO_TIPO = 2;
+    private final int TABLA_TELEFONO_OBS = 3;
+    private final int TABLA_CORREO_ID = 0;
+    private final int TABLA_CORREO_CORREO = 1;
+    private final int TABLA_CORREO_OBS = 2;
+    private final int TABLA_OTROS_CUERPO = 0;
     private void generarTablas(){
         jtDirecciones.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Calle", "Nro", "Piso", "Obs."}));
         jtTelefonos.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Nro", "Tipo", "Obs."}));
+        jtCorreos.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Correo", "Obs."}));
+        jtOtros.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"Notas"}));
     }
     
     private void generarControlVentana(){
         control.CAMPOS_INPUT_ESTANDAR.put("Apellido", jtxtApellido);
         control.CAMPOS_INPUT_ESTANDAR.put("Nombre", jtxtNombre);
-        control.CAMPOS_INPUT_CHECKBOX.add(jcbFechaNoRecordar);
-        control.CAMPOS_INPUT_CHECKBOX.add(jcbFechaDesconocida);
+        control.CAMPOS_CHECKBOX.put("Recordar", jcbFechaNoRecordar);
+        control.CAMPOS_CHECKBOX.put("Desconocida", jcbFechaDesconocida);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -85,10 +92,17 @@ public class AbmPersona extends javax.swing.JFrame {
         jbTelefonoEliminar = new javax.swing.JButton();
         jbTelefonoNuevo = new javax.swing.JButton();
         jbTelefonoEditar = new javax.swing.JButton();
+        jPanelCorreo = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jspCorreos = new javax.swing.JScrollPane();
+        jtCorreos = new javax.swing.JTable();
+        jbCorreoEliminar = new javax.swing.JButton();
+        jbCorreoNuevo = new javax.swing.JButton();
+        jbCorreoEditar = new javax.swing.JButton();
         jPanelOtros = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jspOtros = new javax.swing.JScrollPane();
+        jtOtros = new javax.swing.JTable();
         jbOtrosEliminar = new javax.swing.JButton();
         jbOtrosNueva = new javax.swing.JButton();
         jbOtrosEditar = new javax.swing.JButton();
@@ -216,14 +230,29 @@ public class AbmPersona extends javax.swing.JFrame {
         jspTelefonos.setBounds(10, 10, 410, 90);
 
         jbTelefonoEliminar.setText("Eliminar");
+        jbTelefonoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTelefonoEliminarActionPerformed(evt);
+            }
+        });
         jPanel3.add(jbTelefonoEliminar);
         jbTelefonoEliminar.setBounds(430, 80, 80, 23);
 
         jbTelefonoNuevo.setText("Nuevo");
+        jbTelefonoNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTelefonoNuevoActionPerformed(evt);
+            }
+        });
         jPanel3.add(jbTelefonoNuevo);
         jbTelefonoNuevo.setBounds(430, 10, 80, 23);
 
         jbTelefonoEditar.setText("Editar");
+        jbTelefonoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTelefonoEditarActionPerformed(evt);
+            }
+        });
         jPanel3.add(jbTelefonoEditar);
         jbTelefonoEditar.setBounds(430, 45, 80, 23);
 
@@ -232,18 +261,66 @@ public class AbmPersona extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Telefonos", jPanelTelefono);
 
+        jPanelCorreo.setBackground(new java.awt.Color(255, 255, 204));
+        jPanelCorreo.setLayout(null);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel5.setLayout(null);
+
+        jspCorreos.setViewportView(jtCorreos);
+
+        jPanel5.add(jspCorreos);
+        jspCorreos.setBounds(10, 10, 410, 90);
+
+        jbCorreoEliminar.setText("Eliminar");
+        jbCorreoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCorreoEliminarActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbCorreoEliminar);
+        jbCorreoEliminar.setBounds(430, 80, 80, 23);
+
+        jbCorreoNuevo.setText("Nuevo");
+        jbCorreoNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCorreoNuevoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbCorreoNuevo);
+        jbCorreoNuevo.setBounds(430, 10, 80, 23);
+
+        jbCorreoEditar.setText("Editar");
+        jbCorreoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCorreoEditarActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbCorreoEditar);
+        jbCorreoEditar.setBounds(430, 45, 80, 23);
+
+        jPanelCorreo.add(jPanel5);
+        jPanel5.setBounds(0, 0, 520, 110);
+
+        jTabbedPane1.addTab("Correos", jPanelCorreo);
+
         jPanelOtros.setBackground(new java.awt.Color(255, 255, 204));
         jPanelOtros.setLayout(null);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setLayout(null);
 
-        jScrollPane3.setViewportView(jTable3);
+        jspOtros.setViewportView(jtOtros);
 
-        jPanel4.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 10, 410, 90);
+        jPanel4.add(jspOtros);
+        jspOtros.setBounds(10, 10, 410, 90);
 
         jbOtrosEliminar.setText("Eliminar");
+        jbOtrosEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbOtrosEliminarActionPerformed(evt);
+            }
+        });
         jPanel4.add(jbOtrosEliminar);
         jbOtrosEliminar.setBounds(430, 80, 80, 23);
 
@@ -257,6 +334,11 @@ public class AbmPersona extends javax.swing.JFrame {
         jbOtrosNueva.setBounds(430, 10, 80, 23);
 
         jbOtrosEditar.setText("Editar");
+        jbOtrosEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbOtrosEditarActionPerformed(evt);
+            }
+        });
         jPanel4.add(jbOtrosEditar);
         jbOtrosEditar.setBounds(430, 45, 80, 23);
 
@@ -321,7 +403,13 @@ public class AbmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbOtrosNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOtrosNuevaActionPerformed
-        
+        TextoDialog ventana = new TextoDialog(this, true, "Ingrese una Nota", "");
+        String resultado = ventana.mostrarDialogEsperarResultado();
+        if(resultado != null){
+            Object[] fila = new Object[1];
+            fila[TABLA_OTROS_CUERPO] = resultado;
+            ((DefaultTableModel)jtOtros.getModel()).addRow(fila);
+        }
     }//GEN-LAST:event_jbOtrosNuevaActionPerformed
 
     private void jbDireccionNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDireccionNuevaActionPerformed
@@ -329,23 +417,53 @@ public class AbmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_jbDireccionNuevaActionPerformed
 
     private void jbDireccionEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDireccionEditarActionPerformed
-        int idDireccion = UtilControlTablas.obtenerValorNumericoDeTabla(jtDirecciones, TABLA_DIRECCIONES_ID);
-        if(idDireccion != -1){
-            AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, idDireccion);
-            Direccion direccion = ventana.mostrarDialogEsperarResultado();
-            if(direccion != null){
-                //Solo elimino la fila en caso de que la direccion se haya editado en efecto.
-                //TODO revisar editar el campo en lugar de resetearlo
-                UtilControlTablas.eliminarFilaSeleccionada(jtDirecciones);
-                agregarDireccionTabla(direccion);
-            }
-        }
+        ventanaEdicionDireccion();
     }//GEN-LAST:event_jbDireccionEditarActionPerformed
     
     private void jbDireccionEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDireccionEliminarActionPerformed
          UtilControlTablas.eliminarFilaSeleccionada(jtDirecciones);
     }//GEN-LAST:event_jbDireccionEliminarActionPerformed
-    
+
+    private void jbTelefonoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTelefonoNuevoActionPerformed
+        ventanaNuevoTelefono();
+    }//GEN-LAST:event_jbTelefonoNuevoActionPerformed
+
+    private void jbTelefonoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTelefonoEditarActionPerformed
+        ventanaEdicionTelefono();
+    }//GEN-LAST:event_jbTelefonoEditarActionPerformed
+
+    private void jbCorreoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCorreoNuevoActionPerformed
+        ventanaNuevoCorreo();
+    }//GEN-LAST:event_jbCorreoNuevoActionPerformed
+
+    private void jbCorreoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCorreoEditarActionPerformed
+        ventanaEdicionCorreo();
+    }//GEN-LAST:event_jbCorreoEditarActionPerformed
+
+    private void jbOtrosEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOtrosEditarActionPerformed
+        int fila = jtOtros.getSelectedRow();
+        if(fila == -1){
+            return;
+        }
+        TextoDialog ventana = new TextoDialog(this, true, "Ingrese una Nota", ((DefaultTableModel)jtOtros.getModel()).getValueAt(fila, TABLA_OTROS_CUERPO).toString());
+        String resultado = ventana.mostrarDialogEsperarResultado();
+        if(resultado != null){
+            ((DefaultTableModel)jtOtros.getModel()).setValueAt(resultado, fila, TABLA_OTROS_CUERPO);
+        }
+    }//GEN-LAST:event_jbOtrosEditarActionPerformed
+
+    private void jbOtrosEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOtrosEliminarActionPerformed
+        UtilControlTablas.eliminarFilaSeleccionada(jtOtros);
+    }//GEN-LAST:event_jbOtrosEliminarActionPerformed
+
+    private void jbCorreoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCorreoEliminarActionPerformed
+        UtilControlTablas.eliminarFilaSeleccionada(jtCorreos);
+    }//GEN-LAST:event_jbCorreoEliminarActionPerformed
+
+    private void jbTelefonoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTelefonoEliminarActionPerformed
+        UtilControlTablas.eliminarFilaSeleccionada(jtTelefonos);
+    }//GEN-LAST:event_jbTelefonoEliminarActionPerformed
+
     private void ventanaNuevaDireccion(){
         AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, 0);
         Direccion direccion = ventana.mostrarDialogEsperarResultado();
@@ -353,26 +471,112 @@ public class AbmPersona extends javax.swing.JFrame {
             agregarDireccionTabla(direccion);
         }
     }
+    private void ventanaEdicionDireccion(){
+        int idDireccion = UtilControlTablas.obtenerValorNumericoDeTabla(jtDirecciones, TABLA_DIRECCIONES_ID);
+        if(idDireccion != -1){
+            AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, idDireccion);
+            Direccion direccion = ventana.mostrarDialogEsperarResultado();
+            if(direccion != null){
+                //Solo elimino la fila en caso de que la direccion se haya editado en efecto.
+                agregarDireccionTabla(direccion, jtDirecciones.getSelectedRow());
+            }
+        }
+    }
+    
+    private void ventanaNuevoTelefono(){
+        AbmTelefonoDialog ventana = new AbmTelefonoDialog(this, true, 0);
+        Telefono telefono = ventana.mostrarDialogEsperarResultado();
+        if(telefono != null){
+            agregarTelefonoTabla(telefono);
+        }
+    }
+    private void ventanaEdicionTelefono(){
+        int idTelefono = UtilControlTablas.obtenerValorNumericoDeTabla(jtTelefonos, TABLA_TELEFONO_ID);
+        if(idTelefono != -1){
+            AbmTelefonoDialog ventana = new AbmTelefonoDialog(this, true, idTelefono);
+            Telefono telefono = ventana.mostrarDialogEsperarResultado();
+            if(telefono != null){
+                //Solo elimino la fila en caso de que se haya editado en efecto
+                agregarTelefonoTabla(telefono, jtTelefonos.getSelectedRow());
+            }
+        }
+    }
+    
+    private void ventanaNuevoCorreo(){
+        AbmCorreoDialog ventana = new AbmCorreoDialog(this, true, 0);
+        Correo correo = ventana.mostrarDialogEsperarResultado();
+        if(correo != null){
+            agregarCorreoTabla(correo);
+        }
+    }
+    private void ventanaEdicionCorreo(){
+        int idCorreo = UtilControlTablas.obtenerValorNumericoDeTabla(jtCorreos, TABLA_CORREO_ID);
+        if(idCorreo != -1){
+            AbmCorreoDialog ventana = new AbmCorreoDialog(this, true, idCorreo);
+            Correo correo = ventana.mostrarDialogEsperarResultado();
+            if(correo != null){
+                //Solo elimino la fila en caso de que se haya editado en efecto
+                agregarCorreoTabla(correo, jtCorreos.getSelectedRow());
+            }
+        }
+    }
+    
+    public void agregarCorreoTabla(Correo correo){
+        agregarCorreoTabla(correo, -1);
+    }
+    public void agregarCorreoTabla(Correo correo, int filaPisar){
+        DefaultTableModel modelo = (DefaultTableModel) jtCorreos.getModel();
+        Object[] filaAgregar = new Object[5];
+        filaAgregar[TABLA_CORREO_ID] = correo.getId();
+        filaAgregar[TABLA_CORREO_CORREO] = correo.getCorreo();
+        filaAgregar[TABLA_CORREO_OBS] = correo.getObservaciones();
+        if(filaPisar == -1){
+            modelo.addRow(filaAgregar);
+        } else {
+            modelo.setValueAt(filaAgregar[TABLA_CORREO_CORREO], filaPisar, TABLA_CORREO_CORREO);
+            modelo.setValueAt(filaAgregar[TABLA_CORREO_OBS], filaPisar, TABLA_CORREO_OBS);
+        }
+    }
     
     public void agregarDireccionTabla(Direccion direccion){
+        agregarDireccionTabla(direccion, -1);
+    }
+    public void agregarDireccionTabla(Direccion direccion, int filaPisar){
         DefaultTableModel modelo = (DefaultTableModel) jtDirecciones.getModel();
-        Object[] fila = new Object[5];
-        fila[TABLA_DIRECCIONES_ID] = direccion.getId();
-        fila[TABLA_DIRECCIONES_CALLE] = direccion.getCalle();
-        fila[TABLA_DIRECCIONES_NRO] = direccion.getNro();
-        fila[TABLA_DIRECCIONES_PISO] = direccion.getPiso();
-        fila[TABLA_DIRECCIONES_OBS] = direccion.getObservaciones();
-        modelo.addRow(fila);
+        Object[] filaAgregar = new Object[5];
+        filaAgregar[TABLA_DIRECCIONES_ID] = direccion.getId();
+        filaAgregar[TABLA_DIRECCIONES_CALLE] = direccion.getCalle();
+        filaAgregar[TABLA_DIRECCIONES_NRO] = direccion.getNro();
+        filaAgregar[TABLA_DIRECCIONES_PISO] = direccion.getPiso();
+        filaAgregar[TABLA_DIRECCIONES_OBS] = direccion.getObservaciones();
+        if(filaPisar == -1){
+            modelo.addRow(filaAgregar);
+        } else {
+            modelo.setValueAt(filaAgregar[TABLA_DIRECCIONES_CALLE], filaPisar, TABLA_DIRECCIONES_CALLE);
+            modelo.setValueAt(filaAgregar[TABLA_DIRECCIONES_NRO], filaPisar, TABLA_DIRECCIONES_NRO);
+            modelo.setValueAt(filaAgregar[TABLA_DIRECCIONES_OBS], filaPisar, TABLA_DIRECCIONES_OBS);
+            modelo.setValueAt(filaAgregar[TABLA_DIRECCIONES_PISO], filaPisar, TABLA_DIRECCIONES_PISO);
+        }
     }
     
     public void agregarTelefonoTabla(Telefono telefono){
+        agregarTelefonoTabla(telefono, -1);
+    }
+    public void agregarTelefonoTabla(Telefono telefono, int filaPisar){
         DefaultTableModel modelo = (DefaultTableModel) jtTelefonos.getModel();
-        Object[] fila = new Object[4];
-        fila[TABLA_TELEFONO_ID] = telefono.getId();
-        fila[TABLA_TELEFONO_NRO] = telefono.getNro();
-        fila[TABLA_TELEFONO_TIPO] = telefono.getTipo();
-        fila[TABLA_DIRECCIONES_OBS] = telefono.getObservaciones();
-        modelo.addRow(fila);
+        Object[] filaAgregar = new Object[4];
+        filaAgregar[TABLA_TELEFONO_ID] = telefono.getId();
+        filaAgregar[TABLA_TELEFONO_NRO] = telefono.getNro();
+        filaAgregar[TABLA_TELEFONO_TIPO] = telefono.getTipo();
+        filaAgregar[TABLA_TELEFONO_OBS] = telefono.getObservaciones();
+        if(filaPisar == -1){
+            modelo.addRow(filaAgregar);
+        } else {
+            modelo.setValueAt(filaAgregar[TABLA_TELEFONO_NRO], filaPisar, TABLA_TELEFONO_NRO);
+            modelo.setValueAt(filaAgregar[TABLA_TELEFONO_TIPO], filaPisar, TABLA_TELEFONO_TIPO);
+            modelo.setValueAt(filaAgregar[TABLA_TELEFONO_OBS], filaPisar, TABLA_TELEFONO_OBS);
+        }
+        
     }
     /**
      * @param args the command line arguments
@@ -397,14 +601,17 @@ public class AbmPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelCorreo;
     private javax.swing.JPanel jPanelDireccion;
     private javax.swing.JPanel jPanelOtros;
     private javax.swing.JPanel jPanelTelefono;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbCorreoEditar;
+    private javax.swing.JButton jbCorreoEliminar;
+    private javax.swing.JButton jbCorreoNuevo;
     private javax.swing.JButton jbDireccionEditar;
     private javax.swing.JButton jbDireccionEliminar;
     private javax.swing.JButton jbDireccionNueva;
@@ -422,9 +629,13 @@ public class AbmPersona extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrbSexoHombre;
     private javax.swing.JRadioButton jrbSexoMujer;
     private javax.swing.JRadioButton jrbSexoOtro;
+    private javax.swing.JScrollPane jspCorreos;
     private javax.swing.JScrollPane jspDirecciones;
+    private javax.swing.JScrollPane jspOtros;
     private javax.swing.JScrollPane jspTelefonos;
+    private javax.swing.JTable jtCorreos;
     private javax.swing.JTable jtDirecciones;
+    private javax.swing.JTable jtOtros;
     private javax.swing.JTable jtTelefonos;
     private javax.swing.JTextField jtxtApellido;
     private javax.swing.JFormattedTextField jtxtFormattedFechaNacimiento;

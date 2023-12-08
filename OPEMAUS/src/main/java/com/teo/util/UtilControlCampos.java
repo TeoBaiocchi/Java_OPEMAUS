@@ -5,12 +5,11 @@
 package com.teo.util;
 
 import com.teo.ventanas.JDialogAvisoGenerico;
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -23,7 +22,8 @@ import javax.swing.JTextField;
 public class UtilControlCampos {
     public HashMap<String, JTextField> CAMPOS_INPUT_ESTANDAR = new HashMap<>();
     public HashMap<String, JTextArea> CAMPOS_INPUT_TEXTAREA = new HashMap<>();
-    public List<JCheckBox> CAMPOS_INPUT_CHECKBOX = new ArrayList<>();
+    public HashMap<String, JComboBox> CAMPOS_COMBOBOX = new HashMap<>();
+    public HashMap<String, JCheckBox> CAMPOS_CHECKBOX = new HashMap<>();
     public HashMap<String, JFormattedTextField> CAMPOS_INPUT_FORMATTED = new HashMap<>();
     
     public void vaciarCampos(){
@@ -36,9 +36,12 @@ public class UtilControlCampos {
         CAMPOS_INPUT_FORMATTED.forEach((key, value) -> {
             value.setValue(null);
         });
-        for(JCheckBox jcb : CAMPOS_INPUT_CHECKBOX){
-            jcb.setSelected(false);
-        }
+        CAMPOS_CHECKBOX.forEach((key, value) -> {
+            value.setSelected(false);
+        });
+        CAMPOS_COMBOBOX.forEach((key, value) -> {
+            value.setSelectedIndex(0);
+        });
     }
     
     public boolean revisarInputValidoCampos(JFrame padre){

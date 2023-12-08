@@ -40,6 +40,10 @@ public class OPEMAUS {
         VERSION.add("0.0.4");
         VERSION_CHANGELOG.add("Soporte de carga y eliminacion de direcciones a traves del abm de persona. Multiples util y un srv agregado."
                 + "\nCorrecciones generales mayores.");
+        
+        VERSION.add("0.0.5");
+        VERSION_CHANGELOG.add("Soporte de modelos adicionales para las personas completo."
+                + "\nDirecciones, telefonos, correos, notas adicionales.");
     }
     
         

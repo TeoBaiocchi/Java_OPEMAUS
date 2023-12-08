@@ -3,19 +3,28 @@ package com.teo.modelos;
 /**
  * @author Teo
  */
-public class Telefono {
+public class Correo {
     private int id;
-    private String nro;
-    private String tipo;
+    private String correo;
     private boolean personal;
     private String observaciones;
     
-    public Telefono(){
+    public Correo(){
         id = 0;
-        nro = "";
+        correo = "";
         observaciones = "";
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    
+    
     public int getId() {
         return id;
     }
@@ -24,13 +33,6 @@ public class Telefono {
         this.id = id;
     }
 
-    public String getNro() {
-        return nro;
-    }
-
-    public void setNro(String nro) {
-        this.nro = nro;
-    }
 
     public String getObservaciones() {
         return observaciones;
@@ -39,15 +41,7 @@ public class Telefono {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
+    
     public boolean isPersonal() {
         return personal;
     }
@@ -56,6 +50,4 @@ public class Telefono {
         this.personal = personal;
     }
     
-    
-   
 }

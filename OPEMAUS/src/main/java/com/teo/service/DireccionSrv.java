@@ -56,7 +56,7 @@ public class DireccionSrv {
      * @param id
      * @return Direccion o Null si no existe.
      */
-    public static Direccion obtenerDireccionById(int id) {
+    public static Direccion obtenerById(int id) {
         String path = UtilArchivos.DIRECTORIO_RAIZ + File.separator + UtilArchivos.DIRECTORIO_DIRECCIONES + File.separator + id + ".txt";
         File archivo = new File(path);
         if(!archivo.isFile()){

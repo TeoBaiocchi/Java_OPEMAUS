@@ -23,20 +23,24 @@ import java.util.logging.Logger;
 public class UtilArchivos {
     
     public static String DIRECTORIO_RAIZ = System.getProperty("user.home") + File.separator + "OPEMDATA";
-    public static String DIRECTORIO_PERSONAS = "PERSONAS";
-    public static String DIRECTORIO_DIRECCIONES = "DIRECCIONES";
+    public static String DIRECTORIO_PERSONAS = "MODELOS" + File.separator + "PERSONAS";
+    public static String DIRECTORIO_DIRECCIONES = "MODELOS" + File.separator + "DIRECCIONES";
+    public static String DIRECTORIO_TELEFONOS = "MODELOS" + File.separator + "TELEFONOS";
+    public static String DIRECTORIO_CORREOS = "MODELOS" + File.separator + "CORREOS";
+    
     
     //Verifica que si o si exista el directorio base para trabajar.
     //Si no existe, intenta crearlo, y si fallase por algun motivo devuelve
     //False para que el main maneje el cierre del programa.
     public static boolean verificarDirectorioRaiz(){
-        boolean ret = false;
         System.out.println("[LOG - INICIO] Verificando integridad del directorio ");
-        ret = crearDirectorio("");
-        ret = crearDirectorio(File.separator + DIRECTORIO_PERSONAS);
-        ret = crearDirectorio(File.separator + DIRECTORIO_DIRECCIONES);
+        crearDirectorio("");
+        crearDirectorio(File.separator + DIRECTORIO_PERSONAS);
+        crearDirectorio(File.separator + DIRECTORIO_DIRECCIONES);
+        crearDirectorio(File.separator + DIRECTORIO_TELEFONOS);
+        crearDirectorio(File.separator + DIRECTORIO_CORREOS);
         System.out.println("[LOG - INICIO] Verificacion completa!");
-        return ret;
+        return true;
     }
     
     public static boolean crearDirectorio(String path){
