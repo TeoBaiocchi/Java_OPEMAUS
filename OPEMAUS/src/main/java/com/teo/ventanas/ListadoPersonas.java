@@ -8,6 +8,7 @@ import com.teo.modelos.Persona;
 import com.teo.service.PersonaSrv;
 import com.teo.util.UtilControlCampos;
 import com.teo.util.UtilControlTablas;
+import com.teo.util.UtilControlVentanas;
 import com.teo.util.UtilGraficoVentanas;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,11 @@ public class ListadoPersonas extends javax.swing.JFrame {
 
     UtilGraficoVentanas monitor;
     UtilControlCampos control = new UtilControlCampos();
+     UtilControlVentanas controlVentanas;
     
-    public ListadoPersonas() {
+    public ListadoPersonas(String llamadoDesde) {
         initComponents();
+        controlVentanas = new UtilControlVentanas(this, "ListadoPersona", llamadoDesde);
         inicializar();        
     }
     
@@ -33,6 +36,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
         UtilControlCampos.setearItemsCombo(control.CAMPOS_COMBOBOX.get("Sexo"), new String[]{"Cualquiera", "Hombre", "Mujer", "Otro"});
         generarTablas();
         llenarListadoPersonas(PersonaSrv.obtenerTodos());
+        this.setVisible(true);
     }
 
     private final int TABLA_LISTADO_ID = 0;
@@ -110,6 +114,11 @@ public class ListadoPersonas extends javax.swing.JFrame {
         jbBuscar.setBounds(350, 60, 120, 23);
 
         jbVolver.setText("Volver");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbVolver);
         jbVolver.setBounds(400, 420, 75, 23);
 
@@ -211,41 +220,18 @@ public class ListadoPersonas extends javax.swing.JFrame {
         if(fila == -1){
             return;
         }
-        AbmPersona ventana = new AbmPersona(Integer.parseInt(((DefaultTableModel)jtListado.getModel()).getValueAt(fila, TABLA_LISTADO_ID).toString()));
+        controlVentanas.abrirAbmPersonas(Integer.parseInt(((DefaultTableModel)jtListado.getModel()).getValueAt(fila, TABLA_LISTADO_ID).toString()));
     }//GEN-LAST:event_jbBuscarActionPerformed
 
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
+        controlVentanas.volver();
+    }//GEN-LAST:event_jbVolverActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListadoPersonas().setVisible(true);
-            }
-        });
+    public static void main(String llamadoDesde){
+        ListadoPersonas listadoPersonas = new ListadoPersonas(llamadoDesde);
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboSexo;

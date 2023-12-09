@@ -10,6 +10,7 @@ import com.teo.service.PersonaSrv;
 import com.teo.service.TelefonoSrv;
 import com.teo.util.UtilControlTablas;
 import com.teo.util.UtilControlCampos;
+import com.teo.util.UtilControlVentanas;
 import com.teo.util.UtilFechas;
 import com.teo.util.UtilGraficoVentanas;
 import java.awt.Color;
@@ -24,11 +25,23 @@ public class AbmPersona extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
     UtilControlCampos control = new UtilControlCampos();
+    UtilControlVentanas controlVentanas;
     private int ID = 0;
     
-    public AbmPersona(int id) {
+     public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AbmPersona(0, "");
+            }
+        });
+    }
+        
+    
+    
+    public AbmPersona(int id, String llamadoDesde) {
         initComponents();
         ID = id;
+        controlVentanas = new UtilControlVentanas(this, "AbmPersona", llamadoDesde);
         inicializar();
     }
     
@@ -233,6 +246,11 @@ public class AbmPersona extends javax.swing.JFrame {
         jrbSexoMujer.setBounds(380, 70, 80, 21);
 
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbCancelar);
         jbCancelar.setBounds(10, 300, 90, 23);
 
@@ -584,6 +602,10 @@ public class AbmPersona extends javax.swing.JFrame {
     private void jbTelefonoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTelefonoEliminarActionPerformed
         UtilControlTablas.eliminarFilaSeleccionada(jtTelefonos);
     }//GEN-LAST:event_jbTelefonoEliminarActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        controlVentanas.volver();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void ventanaNuevaDireccion(){
         AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, 0);

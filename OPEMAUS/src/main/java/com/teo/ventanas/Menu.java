@@ -1,6 +1,7 @@
 package com.teo.ventanas;
 
 import com.teo.util.UtilControlTablas;
+import com.teo.util.UtilControlVentanas;
 import com.teo.util.UtilFechas;
 import com.teo.util.UtilGraficoVentanas;
 import java.time.LocalDate;
@@ -12,17 +13,18 @@ import javax.swing.table.DefaultTableModel;
 public class Menu extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
-
+    UtilControlVentanas controlVentanas;
     public Menu() {
         initComponents();
+        controlVentanas = new UtilControlVentanas(this, "Menu", "");
         inicializar();
     }
     
     private void inicializar(){
         monitor = new UtilGraficoVentanas(this, jPanel1, 0, 0);
         monitor.redimensionarReposicionarVentana();
-        
         inicializarCalendario();
+        this.setVisible(true);
     }
 
     private void inicializarCalendario(){
@@ -56,6 +58,11 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log In");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -100,49 +107,23 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        AbmPersona ventana = new AbmPersona(0);
 //        this.dispose();
+//        AbmPersona.main(0, "");
+        controlVentanas.abrirAbmPersonas();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ListadoPersonas.main(new String[]{""});
-//        this.dispose();
+        controlVentanas.abrirListado();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        controlVentanas.volver();
+    }//GEN-LAST:event_formWindowClosed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main() {
+         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                Menu menu = new Menu();
             }
         });
     }

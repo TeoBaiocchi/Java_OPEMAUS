@@ -5,18 +5,53 @@
 package com.teo.util;
 
 import com.teo.ventanas.AbmPersona;
-import java.util.HashMap;
+import com.teo.ventanas.ListadoPersonas;
+import com.teo.ventanas.Menu;
 import javax.swing.JFrame;
-import jdk.jshell.execution.Util;
 
 /**
- *
  * @author Teo
  */
 public class UtilControlVentanas {
     
+    private String llamadoDesde = "";
+    private String nombreFrame = "";
+    private JFrame frame = null;
+
+    public UtilControlVentanas(JFrame frame, String nombreFrame, String llamadoDesde) {
+        this.frame = frame;
+        this.llamadoDesde = llamadoDesde;
+        this.nombreFrame = nombreFrame;
+    }
     
-    public static HashMap<String, UtilControlCampos> CONTROLES_VENTANAS = new HashMap<>();
+    public void volver(){
+        frame.dispose();
+        if(llamadoDesde.equals("Menu")){
+            Menu.main();
+        }
+        if(llamadoDesde.equals("ListadoPersonas")){
+            abrirListado();
+        }
+        if(llamadoDesde.equals("AbmPersonas")){
+            abrirAbmPersonas();
+        }
+        if(llamadoDesde.equals("")){
+            System.exit(0);
+        }
+    }
     
+    public void abrirAbmPersonas(){
+        abrirAbmPersonas(0);
+    }
+    public void abrirAbmPersonas(int id){
+        frame.dispose();
+        AbmPersona.main(new String[]{});
+    }
+            
+    public void abrirListado(){
+        frame.dispose();
+        ListadoPersonas.main(llamadoDesde);
+    }
 
 }
+   
