@@ -12,9 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -97,28 +96,11 @@ public class UtilArchivos {
         }
     }
     
-    private static Gson obtenerGsonPersonas(){
-        return new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-        .create();
-    }
     
-    public static String convertirPersonaEnGson(Persona persona){ 
-       return obtenerGsonPersonas().toJson(persona);
-    }
-    
-    public static Persona convertirGsonStringEnPersona(String jsonString){
-        Gson gson = obtenerGsonPersonas();
-        Persona retorno = new Persona();     
-        try{
-            retorno = gson.fromJson(jsonString, Persona.class);
-        } catch(Exception e){}
-        return retorno;
-    }
 
-    public static List<String> obtenerArchivosEnDirectorio(String path, boolean recortarExtension){
+    public static List<String> obtenerArchivosEnDirectorioString(String path, boolean recortarExtension){
         File dir = new File(DIRECTORIO_RAIZ + File.separator + path);
-        List<String> ret = new ArrayList<String>();
+        List<String> ret = new ArrayList<>();
         for(File archivo : dir.listFiles()){
             if(recortarExtension){
                 ret.add(archivo.getName().substring(0, archivo.getName().lastIndexOf('.')));
@@ -126,6 +108,12 @@ public class UtilArchivos {
                 ret.add(archivo.getName());
             }
         }
+        return ret;
+    }
+    public static List<File> obtenerArchivosEnDirectorio(String path){
+        File dir = new File(DIRECTORIO_RAIZ + File.separator + path);
+        List<File> ret = new ArrayList<>();
+        ret.addAll(Arrays.asList(dir.listFiles()));
         return ret;
     }
     

@@ -38,7 +38,7 @@ public class DireccionSrv {
     
     public static int obtenerMaxID(){
         int idMax = 0;
-        for(String idParse : UtilArchivos.obtenerArchivosEnDirectorio(UtilArchivos.DIRECTORIO_DIRECCIONES, true)){
+        for(String idParse : UtilArchivos.obtenerArchivosEnDirectorioString(UtilArchivos.DIRECTORIO_DIRECCIONES, true)){
             int idComparar = 0;
             try{
                 idComparar = Integer.parseInt(idParse);

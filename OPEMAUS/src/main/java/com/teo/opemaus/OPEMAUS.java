@@ -44,6 +44,12 @@ public class OPEMAUS {
         VERSION.add("0.0.5");
         VERSION_CHANGELOG.add("Soporte de modelos adicionales para las personas completo."
                 + "\nDirecciones, telefonos, correos, notas adicionales.");
+        
+        VERSION.add("0.0.6");
+        VERSION_CHANGELOG.add("Soporte de guardado de persona.");
+        
+        VERSION.add("0.0.7");
+        VERSION_CHANGELOG.add("Listado de personas y edicion funcionales.");
     }
     
         

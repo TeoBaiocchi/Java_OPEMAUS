@@ -39,7 +39,7 @@ public class CorreoSrv {
     public static int obtenerMaxID(){
         //TODO: Esto puede unificarse en un solo metodo que reciba el directorio. 
         int idMax = 0;
-        for(String idParse : UtilArchivos.obtenerArchivosEnDirectorio(UtilArchivos.DIRECTORIO_CORREOS, true)){
+        for(String idParse : UtilArchivos.obtenerArchivosEnDirectorioString(UtilArchivos.DIRECTORIO_CORREOS, true)){
             int idComparar = 0;
             try{
                 idComparar = Integer.parseInt(idParse);

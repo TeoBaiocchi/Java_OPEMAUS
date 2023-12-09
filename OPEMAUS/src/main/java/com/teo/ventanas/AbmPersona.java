@@ -4,12 +4,17 @@ import com.teo.modelos.Correo;
 import com.teo.modelos.Direccion;
 import com.teo.modelos.Persona;
 import com.teo.modelos.Telefono;
-import com.teo.util.UtilArchivos;
+import com.teo.service.CorreoSrv;
+import com.teo.service.DireccionSrv;
+import com.teo.service.PersonaSrv;
+import com.teo.service.TelefonoSrv;
 import com.teo.util.UtilControlTablas;
 import com.teo.util.UtilControlCampos;
 import com.teo.util.UtilFechas;
 import com.teo.util.UtilGraficoVentanas;
-import java.io.File;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,9 +24,11 @@ public class AbmPersona extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
     UtilControlCampos control = new UtilControlCampos();
+    private int ID = 0;
     
-    public AbmPersona() {
+    public AbmPersona(int id) {
         initComponents();
+        ID = id;
         inicializar();
     }
     
@@ -30,6 +37,63 @@ public class AbmPersona extends javax.swing.JFrame {
         monitor.redimensionarReposicionarVentana();
         generarControlVentana();
         generarTablas();
+        llenarCamposEdicion();
+        this.setVisible(true);
+    }
+    
+    private void llenarCamposEdicion(){
+        if(ID == 0){
+            return;
+        }
+        Persona persona = PersonaSrv.obtenerById(ID);
+        control.CAMPOS_INPUT_ESTANDAR.get("Apellido").setText(persona.getApellido());
+        control.CAMPOS_INPUT_ESTANDAR.get("Nombre").setText(persona.getNombre());
+        control.CAMPOS_CHECKBOX.get("RecordarCumpleanios").setSelected(persona.isRecordarCumpleanios());
+        control.CAMPOS_CHECKBOX.get("NoSeCumpleanios").setSelected(persona.isNoSeCumpleanios());
+        
+        int genero = persona.getGenero();
+        if(genero == PersonaSrv.GENERO_HOMBRE){
+            jrbSexoHombre.setSelected(true);
+        } else if(genero == PersonaSrv.GENERO_MUJER){
+            jrbSexoMujer.setSelected(true);
+        } else if(genero == PersonaSrv.GENERO_OTRO){
+            jrbSexoOtro.setSelected(true);
+        } 
+        
+        control.CAMPOS_INPUT_FORMATTED.get("Fecha Nacimiento").setText(persona.getFechaNacimiento().toString());
+        
+        for(String id : persona.getIdsCorreos()){
+            Object[] fila = new Object[3];
+            Correo correo = CorreoSrv.obtenerById(Integer.parseInt(id));
+            fila[TABLA_CORREO_ID] = correo.getId();
+            fila[TABLA_CORREO_CORREO] = correo.getCorreo();
+            fila[TABLA_CORREO_OBS] = correo.getObservaciones();
+            ((DefaultTableModel)jtCorreos.getModel()).addRow(fila);
+        }
+        for(String id : persona.getIdsDirecciones()){
+            Direccion direccion = DireccionSrv.obtenerById(Integer.parseInt(id));
+            Object[] fila = new Object[5];
+            fila[TABLA_DIRECCIONES_ID] = direccion.getId();
+            fila[TABLA_DIRECCIONES_CALLE] = direccion.getCalle();
+            fila[TABLA_DIRECCIONES_NRO] = direccion.getNro();
+            fila[TABLA_DIRECCIONES_PISO] = direccion.getPiso();
+            fila[TABLA_DIRECCIONES_OBS] = direccion.getObservaciones();
+            ((DefaultTableModel)jtDirecciones.getModel()).addRow(fila);
+        }
+        for(String id : persona.getIdsTelefonos()){
+            Telefono telefono = TelefonoSrv.obtenerById(Integer.parseInt(id));
+            Object[] fila = new Object[4];
+            fila[TABLA_TELEFONO_ID] = telefono.getId();
+            fila[TABLA_TELEFONO_NRO] = telefono.getNro();
+            fila[TABLA_TELEFONO_TIPO] = telefono.getTipo();
+            fila[TABLA_TELEFONO_OBS] = telefono.getObservaciones();
+            ((DefaultTableModel)jtTelefonos.getModel()).addRow(fila);
+        }
+        for(String nota : persona.getNotas()){
+            Object[] fila = new Object[1];
+            fila[TABLA_OTROS_CUERPO] = nota;
+            ((DefaultTableModel)jtOtros.getModel()).addRow(fila);
+        }
     }
     
     private final int TABLA_DIRECCIONES_ID = 0;
@@ -55,8 +119,16 @@ public class AbmPersona extends javax.swing.JFrame {
     private void generarControlVentana(){
         control.CAMPOS_INPUT_ESTANDAR.put("Apellido", jtxtApellido);
         control.CAMPOS_INPUT_ESTANDAR.put("Nombre", jtxtNombre);
-        control.CAMPOS_CHECKBOX.put("Recordar", jcbFechaNoRecordar);
-        control.CAMPOS_CHECKBOX.put("Desconocida", jcbFechaDesconocida);
+        
+        control.CAMPOS_CHECKBOX.put("RecordarCumpleanios", jcbFechaNoRecordar);
+        control.CAMPOS_CHECKBOX.put("NoSeCumpleanios", jcbFechaDesconocida);
+        
+        control.CAMPOS_INPUT_FORMATTED.put("Fecha Nacimiento", jtxtFormattedFechaNacimiento);
+        
+        control.CAMPOS_TABLAS.put("Direcciones", jtDirecciones);
+        control.CAMPOS_TABLAS.put("Correos", jtCorreos);
+        control.CAMPOS_TABLAS.put("Otros", jtOtros);
+        control.CAMPOS_TABLAS.put("Telefonos", jtTelefonos);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -390,12 +462,61 @@ public class AbmPersona extends javax.swing.JFrame {
         }
         
         Persona persona = new Persona();
-        persona.setNombre(jtxtNombre.getText());
-        persona.setApellido(jtxtApellido.getText());
-        persona.setFechaNacimiento(UtilFechas.obtenerFechaHoy());
-        String path = UtilArchivos.DIRECTORIO_PERSONAS + File.separator + String.valueOf(persona.getId()) + ".txt";
-        UtilArchivos.crearArchivo(path);
-        UtilArchivos.escribirArchivo(path, UtilArchivos.convertirPersonaEnGson(persona));
+        
+        if(ID == 0){
+            persona.setId(PersonaSrv.obtenerMaxID()+1);
+        } else {
+            persona.setId(ID);
+            PersonaSrv.eliminar(ID); //"Editar" es efectivamente eliminar el registro anterior, 
+            //y reemplazarlo por el guardado del nuevo.
+        }
+        
+        persona.setFechaNacimiento(UtilFechas.obtenerFechaHoy()); //TODO: Corregir fecha
+        
+        persona.setNombre(control.CAMPOS_INPUT_ESTANDAR.get("Nombre").getText());
+        persona.setApellido(control.CAMPOS_INPUT_ESTANDAR.get("Apellido").getText());
+        
+        
+        persona.setNoSeCumpleanios(control.CAMPOS_CHECKBOX.get("NoSeCumpleanios").isSelected());
+        persona.setRecordarCumpleanios(control.CAMPOS_CHECKBOX.get("RecordarCumpleanios").isSelected());
+        
+        if(jrbSexoHombre.isSelected()){
+            persona.setGenero(PersonaSrv.GENERO_HOMBRE);
+        } else 
+        if(jrbSexoMujer.isSelected()){
+            persona.setGenero(PersonaSrv.GENERO_MUJER);
+        } else
+        if(jrbSexoOtro.isSelected()){
+            persona.setGenero(PersonaSrv.GENERO_OTRO);
+        } 
+        
+        List<String> leidoTablas = new ArrayList<>();
+        for(int fila = 0; fila < jtDirecciones.getRowCount(); fila++){
+            leidoTablas.add(((DefaultTableModel)jtDirecciones.getModel()).getValueAt(fila, TABLA_DIRECCIONES_ID).toString());
+        }
+        persona.setIdsDirecciones(leidoTablas);
+        
+        leidoTablas = new ArrayList<>();
+        for(int fila = 0; fila < jtTelefonos.getRowCount(); fila++){
+            leidoTablas.add(((DefaultTableModel)jtTelefonos.getModel()).getValueAt(fila, TABLA_TELEFONO_ID).toString());
+        }
+        persona.setIdsTelefonos(leidoTablas);
+        
+        leidoTablas = new ArrayList<>();
+        for(int fila = 0; fila < jtCorreos.getRowCount(); fila++){
+            leidoTablas.add(((DefaultTableModel)jtCorreos.getModel()).getValueAt(fila, TABLA_CORREO_ID).toString());
+        }
+        persona.setIdsCorreos(leidoTablas);
+        
+        leidoTablas = new ArrayList<>();
+        for(int fila = 0; fila < jtOtros.getRowCount(); fila++){
+            leidoTablas.add(((DefaultTableModel)jtOtros.getModel()).getValueAt(fila, TABLA_OTROS_CUERPO).toString());
+        }
+        persona.setNotas(leidoTablas);
+        
+        PersonaSrv.guardar(persona);
+        JDialogAvisoGenerico ventana = new JDialogAvisoGenerico(this, true, "Guardado con exito!", Color.GREEN);
+        this.dispose();
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
@@ -577,17 +698,6 @@ public class AbmPersona extends javax.swing.JFrame {
             modelo.setValueAt(filaAgregar[TABLA_TELEFONO_OBS], filaPisar, TABLA_TELEFONO_OBS);
         }
         
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AbmPersona().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,6 +1,7 @@
 package com.teo.modelos;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Teo
@@ -10,7 +11,13 @@ public class Persona {
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
+    private boolean recordarCumpleanios;
+    private boolean noSeCumpleanios;
     private int genero;
+    private List<String> idsDirecciones;
+    private List<String> idsTelefonos;
+    private List<String> idsCorreos;
+    private List<String> notas;
     
     public Persona(){
         id = 0;
@@ -28,8 +35,22 @@ public class Persona {
         this.id = id;
     }
 
-    
-    
+    public boolean isRecordarCumpleanios() {
+        return recordarCumpleanios;
+    }
+
+    public void setRecordarCumpleanios(boolean recordarCumpleanios) {
+        this.recordarCumpleanios = recordarCumpleanios;
+    }
+
+    public boolean isNoSeCumpleanios() {
+        return noSeCumpleanios;
+    }
+
+    public void setNoSeCumpleanios(boolean noSeCumpleanios) {
+        this.noSeCumpleanios = noSeCumpleanios;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -61,4 +82,38 @@ public class Persona {
     public void setGenero(int genero) {
         this.genero = genero;
     }
+
+    public List<String> getIdsDirecciones() {
+        return idsDirecciones;
+    }
+
+    public void setIdsDirecciones(List<String> idsDirecciones) {
+        this.idsDirecciones = idsDirecciones;
+    }
+
+    public List<String> getIdsTelefonos() {
+        return idsTelefonos;
+    }
+
+    public void setIdsTelefonos(List<String> idsTelefonos) {
+        this.idsTelefonos = idsTelefonos;
+    }
+
+    public List<String> getIdsCorreos() {
+        return idsCorreos;
+    }
+
+    public void setIdsCorreos(List<String> idsCorreos) {
+        this.idsCorreos = idsCorreos;
+    }
+
+    public List<String> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<String> notas) {
+        this.notas = notas;
+    }
+    
+    
 }

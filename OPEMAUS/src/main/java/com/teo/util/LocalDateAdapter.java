@@ -10,7 +10,7 @@ import java.time.LocalDate;
 /**
  * @author Teo
  */
-class LocalDateAdapter extends TypeAdapter<LocalDate> {
+public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     @Override
     public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
         if (localDate == null) {

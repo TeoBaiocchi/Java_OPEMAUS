@@ -38,7 +38,7 @@ public class TelefonoSrv {
     
     public static int obtenerMaxID(){
         int idMax = 0;
-        for(String idParse : UtilArchivos.obtenerArchivosEnDirectorio(UtilArchivos.DIRECTORIO_TELEFONOS, true)){
+        for(String idParse : UtilArchivos.obtenerArchivosEnDirectorioString(UtilArchivos.DIRECTORIO_TELEFONOS, true)){
             int idComparar = 0;
             try{
                 idComparar = Integer.parseInt(idParse);

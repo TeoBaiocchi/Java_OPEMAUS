@@ -64,9 +64,14 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Calendario Interactivo");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(11, 14, 370, 16);
+        jLabel1.setBounds(11, 14, 370, 15);
 
         jButton1.setText("Listado Personas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
         jButton1.setBounds(240, 60, 120, 23);
 
@@ -95,9 +100,14 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        AbmPersona.main(new String[]{""});
-        this.dispose();
+        AbmPersona ventana = new AbmPersona(0);
+//        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ListadoPersonas.main(new String[]{""});
+//        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

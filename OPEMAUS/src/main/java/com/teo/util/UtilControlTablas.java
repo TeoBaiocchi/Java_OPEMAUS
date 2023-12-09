@@ -68,6 +68,10 @@ public class UtilControlTablas {
             ((DefaultTableModel)tabla.getModel()).removeRow(fila);
         }
     }
+
+    public static void limpiarTabla(JTable tabla) {
+        ((DefaultTableModel)tabla.getModel()).setRowCount(0);
+    }
     
     public void posicionarJSPDebajoDeTXT(JScrollPane jsp, JTextField jtxt, int altura) {
         jsp.setBounds(jtxt.getX(), jtxt.getY() + jtxt.getHeight(), jtxt.getWidth(), altura);

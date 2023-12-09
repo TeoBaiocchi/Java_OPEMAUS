@@ -48,10 +48,8 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
         control.CAMPOS_COMBOBOX.put("Tipo", jComboTipo);
         control.CAMPOS_CHECKBOX.put("Personal", jcbPersonal);
        
-        String[] tipos = new String[]{"Celular", "Fijo", "Oficina", "Negocio", "Fax"};
-        for(String tipo : tipos){
-            jComboTipo.addItem(tipo);
-        }
+        
+        UtilControlCampos.setearItemsCombo( control.CAMPOS_COMBOBOX.get("Tipo"), new String[]{"Celular", "Fijo", "Oficina", "Negocio", "Fax"});
         
         if(ID == 0){
             jLabelTitulo.setText("Nuevo Telefono");
