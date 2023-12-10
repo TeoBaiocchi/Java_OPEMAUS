@@ -13,10 +13,9 @@ import javax.swing.table.DefaultTableModel;
 public class Menu extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
-    UtilControlVentanas controlVentanas;
+    
     public Menu() {
         initComponents();
-        controlVentanas = new UtilControlVentanas(this, "Menu", "");
         inicializar();
     }
     
@@ -107,26 +106,19 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-//        this.dispose();
-//        AbmPersona.main(0, "");
-        controlVentanas.abrirAbmPersonas();
+        UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_MENU);
+        UtilControlVentanas.abrirAbmPersonas(this);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlVentanas.abrirListado();
+        UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_MENU);
+        UtilControlVentanas.abrirListado(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        controlVentanas.volver();
+
     }//GEN-LAST:event_formWindowClosed
 
-    public static void main() {
-         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Menu menu = new Menu();
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

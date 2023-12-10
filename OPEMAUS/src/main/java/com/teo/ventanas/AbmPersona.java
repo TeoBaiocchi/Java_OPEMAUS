@@ -25,23 +25,11 @@ public class AbmPersona extends javax.swing.JFrame {
     
     UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
     UtilControlCampos control = new UtilControlCampos();
-    UtilControlVentanas controlVentanas;
     private int ID = 0;
-    
-     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AbmPersona(0, "");
-            }
-        });
-    }
-        
-    
     
     public AbmPersona(int id, String llamadoDesde) {
         initComponents();
         ID = id;
-        controlVentanas = new UtilControlVentanas(this, "AbmPersona", llamadoDesde);
         inicializar();
     }
     
@@ -202,6 +190,11 @@ public class AbmPersona extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log In");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -604,8 +597,12 @@ public class AbmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_jbTelefonoEliminarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        controlVentanas.volver();
+        UtilControlVentanas.volver(this);
     }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        UtilControlVentanas.volver(this);
+    }//GEN-LAST:event_formWindowClosed
 
     private void ventanaNuevaDireccion(){
         AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, 0);

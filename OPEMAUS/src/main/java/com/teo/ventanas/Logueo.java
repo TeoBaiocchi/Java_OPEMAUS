@@ -1,6 +1,7 @@
 package com.teo.ventanas;
 
 import com.teo.opemaus.OPEMAUS;
+import com.teo.util.UtilControlVentanas;
 import com.teo.util.UtilGraficoVentanas;
 
 /**
@@ -74,12 +75,15 @@ public class Logueo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
-        if(jtxtContra.getText().trim().equals("pass")){
-            Menu.main();
-            this.dispose();
-        }
+        checkPass();
     }//GEN-LAST:event_jbAceptarActionPerformed
 
+    private void checkPass(){
+        if(jtxtContra.getText().trim().equals("pass")){
+            UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_CERRARPROGRAMA);
+            UtilControlVentanas.abrirMenu(this);
+        }
+    }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

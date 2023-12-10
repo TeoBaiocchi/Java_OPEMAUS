@@ -14,44 +14,54 @@ import javax.swing.JFrame;
  */
 public class UtilControlVentanas {
     
-    private String llamadoDesde = "";
-    private String nombreFrame = "";
-    private JFrame frame = null;
-
-    public UtilControlVentanas(JFrame frame, String nombreFrame, String llamadoDesde) {
-        this.frame = frame;
-        this.llamadoDesde = llamadoDesde;
-        this.nombreFrame = nombreFrame;
-    }
+    private static String frameVolver = "";
+    public static String VOLVER_MENU = "Menu";
+    public static String VOLVER_LISTADOPERSONAS = "ListadoPersonas";
+    public static String VOLVER_ABMPERSONAS = "AbmPersonas";
+    public static String VOLVER_CERRARPROGRAMA = "Salir";
     
-    public void volver(){
-        frame.dispose();
-        if(llamadoDesde.equals("Menu")){
-            Menu.main();
+    private static AbmPersona abmPersona = null;
+    private static ListadoPersonas listadoPersonas = null;
+    private static Menu menu = null;
+
+    
+    public static void volver(JFrame frame){
+        if(frameVolver.equals(VOLVER_MENU)){
+            abrirMenu(frame);
         }
-        if(llamadoDesde.equals("ListadoPersonas")){
-            abrirListado();
+        if(frameVolver.equals(VOLVER_LISTADOPERSONAS)){
+            abrirListado(frame);
         }
-        if(llamadoDesde.equals("AbmPersonas")){
-            abrirAbmPersonas();
+        if(frameVolver.equals(VOLVER_ABMPERSONAS)){
+            abrirAbmPersonas(frame);
         }
-        if(llamadoDesde.equals("")){
+        if(frameVolver.equals(VOLVER_CERRARPROGRAMA)){
             System.exit(0);
         }
     }
     
-    public void abrirAbmPersonas(){
-        abrirAbmPersonas(0);
-    }
-    public void abrirAbmPersonas(int id){
+    public static void abrirMenu(JFrame frame){
         frame.dispose();
-        AbmPersona.main(new String[]{});
+        menu = new Menu();
+    }
+    
+    public static void abrirAbmPersonas(JFrame frame){
+        frame.dispose();
+        abrirAbmPersonas(frame, 0);
+    }
+    public static void abrirAbmPersonas(JFrame frame, int id){
+        frame.dispose();
+        abmPersona = new AbmPersona(id, "");
     }
             
-    public void abrirListado(){
+    public static void abrirListado(JFrame frame){
         frame.dispose();
-        ListadoPersonas.main(llamadoDesde);
+        listadoPersonas = new ListadoPersonas();
     }
-
+    
+    public static void setearFrameParaVolver(String nombre){
+        frameVolver = nombre;
+    }
+    
 }
    

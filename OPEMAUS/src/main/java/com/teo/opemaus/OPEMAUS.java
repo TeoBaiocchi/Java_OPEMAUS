@@ -1,6 +1,5 @@
 package com.teo.opemaus;
 import com.teo.util.UtilArchivos;
-import com.teo.ventanas.JDialogAvisoGenerico;
 import com.teo.ventanas.Logueo;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ public class OPEMAUS {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         UtilArchivos.verificarDirectorioRaiz();
-
         OPEMAUS.cargarVersiones(); 
         Logueo.main(args);
     }
@@ -50,6 +48,12 @@ public class OPEMAUS {
         
         VERSION.add("0.0.7");
         VERSION_CHANGELOG.add("Listado de personas y edicion funcionales.");
+        
+        VERSION.add("0.0.8");
+        VERSION_CHANGELOG.add("Añadido flujo de movimiento de ventanas (abrir y cerrar funciona correctamente).");
+        
+        VERSION.add("0.0.9");
+        VERSION_CHANGELOG.add("Correcciones visuales y aviso de cerrar el programa.");
     }
     
         

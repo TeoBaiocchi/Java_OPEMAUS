@@ -21,11 +21,9 @@ public class ListadoPersonas extends javax.swing.JFrame {
 
     UtilGraficoVentanas monitor;
     UtilControlCampos control = new UtilControlCampos();
-     UtilControlVentanas controlVentanas;
     
-    public ListadoPersonas(String llamadoDesde) {
+    public ListadoPersonas() {
         initComponents();
-        controlVentanas = new UtilControlVentanas(this, "ListadoPersona", llamadoDesde);
         inicializar();        
     }
     
@@ -84,6 +82,11 @@ public class ListadoPersonas extends javax.swing.JFrame {
         jlabelResultados1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -220,17 +223,18 @@ public class ListadoPersonas extends javax.swing.JFrame {
         if(fila == -1){
             return;
         }
-        controlVentanas.abrirAbmPersonas(Integer.parseInt(((DefaultTableModel)jtListado.getModel()).getValueAt(fila, TABLA_LISTADO_ID).toString()));
+        UtilControlVentanas.abrirAbmPersonas(this, Integer.parseInt(((DefaultTableModel)jtListado.getModel()).getValueAt(fila, TABLA_LISTADO_ID).toString()));
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        controlVentanas.volver();
+        UtilControlVentanas.volver(this);
     }//GEN-LAST:event_jbVolverActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        UtilControlVentanas.volver(this);
+    }//GEN-LAST:event_formWindowClosed
 
-    public static void main(String llamadoDesde){
-        ListadoPersonas listadoPersonas = new ListadoPersonas(llamadoDesde);
-    }
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
