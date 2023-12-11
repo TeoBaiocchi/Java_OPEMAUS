@@ -26,6 +26,7 @@ public class UtilArchivos {
     public static String DIRECTORIO_DIRECCIONES = "MODELOS" + File.separator + "DIRECCIONES";
     public static String DIRECTORIO_TELEFONOS = "MODELOS" + File.separator + "TELEFONOS";
     public static String DIRECTORIO_CORREOS = "MODELOS" + File.separator + "CORREOS";
+    public static String DIRECTORIO_TAREAS = "MODELOS" + File.separator + "TAREAS";
     
     
     //Verifica que si o si exista el directorio base para trabajar.
@@ -33,11 +34,28 @@ public class UtilArchivos {
     //False para que el main maneje el cierre del programa.
     public static boolean verificarDirectorioRaiz(){
         System.out.println("[LOG - INICIO] Verificando integridad del directorio ");
-        crearDirectorio("");
-        crearDirectorio(File.separator + DIRECTORIO_PERSONAS);
-        crearDirectorio(File.separator + DIRECTORIO_DIRECCIONES);
-        crearDirectorio(File.separator + DIRECTORIO_TELEFONOS);
-        crearDirectorio(File.separator + DIRECTORIO_CORREOS);
+        
+        boolean bandera = true;
+        
+        if(!crearDirectorio("")){
+            bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_PERSONAS)){
+            bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_DIRECCIONES)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_TELEFONOS)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_CORREOS)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_TAREAS)){
+             bandera = false;
+        }
+
         System.out.println("[LOG - INICIO] Verificacion completa!");
         return true;
     }

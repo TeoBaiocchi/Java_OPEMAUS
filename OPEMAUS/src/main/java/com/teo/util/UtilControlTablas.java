@@ -14,6 +14,15 @@ import javax.swing.table.DefaultTableModel;
 public class UtilControlTablas {
     
     
+    public static void setearAnchoTablaPorcentajes100(int[] porcentajes, JTable tabla){  
+        int fraccion = tabla.getWidth()/100;
+        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        for(int i = 0; i < porcentajes.length; i++){
+            tabla.getColumnModel().getColumn(i).setPreferredWidth(fraccion*porcentajes[i]);
+        }
+        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }
+    
      /**
      * De la misma forma que la version no-generic de esta funcion, recibe un array de titulos y
      * devuelve un modelo correspondiente. Pero no es necesario definir class o canEdit porque

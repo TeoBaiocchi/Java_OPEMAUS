@@ -1,8 +1,9 @@
 package com.teo.ventanas;
 
 import com.teo.opemaus.OPEMAUS;
-import com.teo.util.UtilControlVentanas;
+import com.teo.util.FlujoVentanas;
 import com.teo.util.UtilGraficoVentanas;
+import java.awt.event.KeyEvent;
 
 /**
  * @author Teo
@@ -48,9 +49,15 @@ public class Logueo extends javax.swing.JFrame {
         jLabel1.setBounds(10, 100, 350, 16);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel3.setText("Contraseña :");
+        jLabel3.setText("Contraseña  :");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 55, 100, 16);
+
+        jtxtContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtContraKeyReleased(evt);
+            }
+        });
         jPanel1.add(jtxtContra);
         jtxtContra.setBounds(120, 50, 140, 30);
 
@@ -61,7 +68,7 @@ public class Logueo extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbAceptar);
-        jbAceptar.setBounds(270, 55, 70, 23);
+        jbAceptar.setBounds(270, 58, 70, 20);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("OPEM");
@@ -78,10 +85,16 @@ public class Logueo extends javax.swing.JFrame {
         checkPass();
     }//GEN-LAST:event_jbAceptarActionPerformed
 
+    private void jtxtContraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtContraKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            checkPass();
+        }
+    }//GEN-LAST:event_jtxtContraKeyReleased
+
     private void checkPass(){
-        if(jtxtContra.getText().trim().equals("pass")){
-            UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_CERRARPROGRAMA);
-            UtilControlVentanas.abrirMenu(this);
+        if(jtxtContra.getText().trim().equals("")){
+            FlujoVentanas.setearFrameParaVolver(FlujoVentanas.CERRAR_PROGRAMA);
+            FlujoVentanas.abrirMenu(this);
         }
     }
 

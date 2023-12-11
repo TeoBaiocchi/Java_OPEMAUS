@@ -8,8 +8,9 @@ import com.teo.modelos.Persona;
 import com.teo.service.PersonaSrv;
 import com.teo.util.UtilControlCampos;
 import com.teo.util.UtilControlTablas;
-import com.teo.util.UtilControlVentanas;
+import com.teo.util.FlujoVentanas;
 import com.teo.util.UtilGraficoVentanas;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -78,10 +79,9 @@ public class ListadoPersonas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jbBuscar1 = new javax.swing.JButton();
-        jbBuscar2 = new javax.swing.JButton();
-        jlabelResultados1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Listado");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -100,8 +100,20 @@ public class ListadoPersonas extends javax.swing.JFrame {
         jlabelResultados.setText("Listado Personas");
         jPanel1.add(jlabelResultados);
         jlabelResultados.setBounds(10, 10, 470, 16);
+
+        jtxtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtApellidoKeyReleased(evt);
+            }
+        });
         jPanel1.add(jtxtApellido);
         jtxtApellido.setBounds(90, 60, 160, 22);
+
+        jtxtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNombreKeyReleased(evt);
+            }
+        });
         jPanel1.add(jtxtNombre);
         jtxtNombre.setBounds(90, 30, 160, 22);
         jPanel1.add(jComboSexo);
@@ -114,7 +126,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbBuscar);
-        jbBuscar.setBounds(350, 60, 120, 23);
+        jbBuscar.setBounds(350, 80, 120, 23);
 
         jbVolver.setText("Volver");
         jbVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +135,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbVolver);
-        jbVolver.setBounds(400, 420, 75, 23);
+        jbVolver.setBounds(10, 420, 75, 23);
 
         jbLimpiar.setText("Limpiar");
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +144,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbLimpiar);
-        jbLimpiar.setBounds(350, 30, 120, 23);
+        jbLimpiar.setBounds(350, 50, 120, 23);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel1.setText("Sexo : ");
@@ -158,19 +170,6 @@ public class ListadoPersonas extends javax.swing.JFrame {
         jPanel1.add(jbBuscar1);
         jbBuscar1.setBounds(260, 50, 75, 50);
 
-        jbBuscar2.setText("Ver detalle");
-        jbBuscar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscar2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbBuscar2);
-        jbBuscar2.setBounds(350, 90, 120, 23);
-
-        jlabelResultados1.setText("placeholder");
-        jPanel1.add(jlabelResultados1);
-        jlabelResultados1.setBounds(10, 130, 470, 16);
-
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 490, 460);
 
@@ -179,6 +178,8 @@ public class ListadoPersonas extends javax.swing.JFrame {
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         control.vaciarCampos();
+        UtilControlTablas.limpiarTabla(jtListado);
+        llenarListadoPersonas(PersonaSrv.obtenerTodos());
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void buscar(){
@@ -208,14 +209,10 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         }
         llenarListadoPersonas(filtrados);
+ 
     }
-    private void jbBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbBuscar2ActionPerformed
-
     private void jbBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscar1ActionPerformed
         buscar();
-        llenarListadoPersonas(PersonaSrv.obtenerTodos());
     }//GEN-LAST:event_jbBuscar1ActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
@@ -223,16 +220,37 @@ public class ListadoPersonas extends javax.swing.JFrame {
         if(fila == -1){
             return;
         }
-        UtilControlVentanas.abrirAbmPersonas(this, Integer.parseInt(((DefaultTableModel)jtListado.getModel()).getValueAt(fila, TABLA_LISTADO_ID).toString()));
+        FlujoVentanas.setearFrameParaVolver(FlujoVentanas.FRAME_LISTADOPERSONAS);
+        FlujoVentanas.abrirAbmPersonas(this, Integer.parseInt(((DefaultTableModel)jtListado.getModel()).getValueAt(fila, TABLA_LISTADO_ID).toString()));
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        UtilControlVentanas.volver(this);
+        cerrar();
     }//GEN-LAST:event_jbVolverActionPerformed
 
+    private boolean banderaCerrar = false;
+    private void cerrar(){
+        if(!banderaCerrar){
+            banderaCerrar = true;
+            FlujoVentanas.volver(this);
+        }
+    } 
+    
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        UtilControlVentanas.volver(this);
+
     }//GEN-LAST:event_formWindowClosed
+
+    private void jtxtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNombreKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscar();
+        }
+    }//GEN-LAST:event_jtxtNombreKeyReleased
+
+    private void jtxtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtApellidoKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            buscar();
+        }
+    }//GEN-LAST:event_jtxtApellidoKeyReleased
 
 
     
@@ -245,11 +263,9 @@ public class ListadoPersonas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbBuscar1;
-    private javax.swing.JButton jbBuscar2;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbVolver;
     private javax.swing.JLabel jlabelResultados;
-    private javax.swing.JLabel jlabelResultados1;
     private javax.swing.JScrollPane jspListado;
     private javax.swing.JTable jtListado;
     private javax.swing.JTextField jtxtApellido;

@@ -1,6 +1,6 @@
 package com.teo.ventanas;
 
-import com.teo.util.UtilControlVentanas;
+import com.teo.util.FlujoVentanas;
 import com.teo.util.UtilGraficoVentanas;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -11,12 +11,11 @@ import jdk.jshell.execution.Util;
  */
 public class JDialogCerrarPrograma extends javax.swing.JDialog {
 
-    UtilGraficoVentanas monitor;
     
     public JDialogCerrarPrograma(java.awt.Frame parent, boolean modal){
         super(parent, modal);
         initComponents();
-        monitor.resizearDialog(this, parent, jPanel1);
+        UtilGraficoVentanas.resizearDialog(this, parent, jPanel1);
         this.setVisible(true);
     }
 
@@ -75,8 +74,8 @@ public class JDialogCerrarPrograma extends javax.swing.JDialog {
     }//GEN-LAST:event_jbOKActionPerformed
 
     private void jbOK1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOK1ActionPerformed
-        UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_CERRARPROGRAMA);
-        UtilControlVentanas.volver(null);
+        FlujoVentanas.setearFrameParaVolver(FlujoVentanas.CERRAR_PROGRAMA);
+        FlujoVentanas.volver(null);
     }//GEN-LAST:event_jbOK1ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

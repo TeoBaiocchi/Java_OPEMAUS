@@ -11,7 +11,7 @@ public class Persona {
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
-    private boolean recordarCumpleanios;
+    private boolean noRecordarCumpleanios;
     private boolean noSeCumpleanios;
     private int genero;
     private List<String> idsDirecciones;
@@ -35,12 +35,12 @@ public class Persona {
         this.id = id;
     }
 
-    public boolean isRecordarCumpleanios() {
-        return recordarCumpleanios;
+    public boolean isNoRecordarCumpleanios() {
+        return noRecordarCumpleanios;
     }
 
-    public void setRecordarCumpleanios(boolean recordarCumpleanios) {
-        this.recordarCumpleanios = recordarCumpleanios;
+    public void setNoRecordarCumpleanios(boolean recordarCumpleanios) {
+        this.noRecordarCumpleanios = recordarCumpleanios;
     }
 
     public boolean isNoSeCumpleanios() {

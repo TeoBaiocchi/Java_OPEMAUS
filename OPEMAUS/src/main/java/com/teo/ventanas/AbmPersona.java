@@ -10,10 +10,11 @@ import com.teo.service.PersonaSrv;
 import com.teo.service.TelefonoSrv;
 import com.teo.util.UtilControlTablas;
 import com.teo.util.UtilControlCampos;
-import com.teo.util.UtilControlVentanas;
+import com.teo.util.FlujoVentanas;
 import com.teo.util.UtilFechas;
 import com.teo.util.UtilGraficoVentanas;
 import java.awt.Color;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +28,7 @@ public class AbmPersona extends javax.swing.JFrame {
     UtilControlCampos control = new UtilControlCampos();
     private int ID = 0;
     
-    public AbmPersona(int id, String llamadoDesde) {
+    public AbmPersona(int id) {
         initComponents();
         ID = id;
         inicializar();
@@ -38,6 +39,7 @@ public class AbmPersona extends javax.swing.JFrame {
         monitor.redimensionarReposicionarVentana();
         generarControlVentana();
         generarTablas();
+        jLabelTitulo.setText("Nueva Persona");
         llenarCamposEdicion();
         this.setVisible(true);
     }
@@ -47,10 +49,10 @@ public class AbmPersona extends javax.swing.JFrame {
             return;
         }
         Persona persona = PersonaSrv.obtenerById(ID);
-        control.CAMPOS_INPUT_ESTANDAR.get("Apellido").setText(persona.getApellido());
-        control.CAMPOS_INPUT_ESTANDAR.get("Nombre").setText(persona.getNombre());
-        control.CAMPOS_CHECKBOX.get("RecordarCumpleanios").setSelected(persona.isRecordarCumpleanios());
-        control.CAMPOS_CHECKBOX.get("NoSeCumpleanios").setSelected(persona.isNoSeCumpleanios());
+        jtxtApellido.setText(persona.getApellido());
+        jtxtNombre.setText(persona.getNombre());
+        jcbFechaNoRecordar.setSelected(persona.isNoRecordarCumpleanios());
+        jcbFechaDesconocida.setSelected(persona.isNoSeCumpleanios());
         
         int genero = persona.getGenero();
         if(genero == PersonaSrv.GENERO_HOMBRE){
@@ -61,7 +63,7 @@ public class AbmPersona extends javax.swing.JFrame {
             jrbSexoOtro.setSelected(true);
         } 
         
-        control.CAMPOS_INPUT_FORMATTED.get("Fecha Nacimiento").setText(persona.getFechaNacimiento().toString());
+       jtxtFormattedFechaNacimiento.setText(persona.getFechaNacimiento().toString());
         
         for(String id : persona.getIdsCorreos()){
             Object[] fila = new Object[3];
@@ -95,6 +97,8 @@ public class AbmPersona extends javax.swing.JFrame {
             fila[TABLA_OTROS_CUERPO] = nota;
             ((DefaultTableModel)jtOtros.getModel()).addRow(fila);
         }
+        
+        jLabelTitulo.setText("Editando Persona Nro: " + ID);
     }
     
     private final int TABLA_DIRECCIONES_ID = 0;
@@ -187,8 +191,8 @@ public class AbmPersona extends javax.swing.JFrame {
 
         jPasswordField1.setText("jPasswordField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Log In");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Agregar / Modificar Persona");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -214,9 +218,15 @@ public class AbmPersona extends javax.swing.JFrame {
         jLabel3.setBounds(290, 40, 210, 20);
 
         jtxtFormattedFechaNacimiento.setFormatterFactory(UtilFechas.FORMATTER_FACTORY);
+        jtxtFormattedFechaNacimiento.setText("dia/mes/año");
         jtxtFormattedFechaNacimiento.setActionCommand("<Not Set>");
+        jtxtFormattedFechaNacimiento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtFormattedFechaNacimientoFocusGained(evt);
+            }
+        });
         jPanel1.add(jtxtFormattedFechaNacimiento);
-        jtxtFormattedFechaNacimiento.setBounds(130, 120, 90, 22);
+        jtxtFormattedFechaNacimiento.setBounds(120, 120, 90, 22);
 
         jLabel4.setText("Apellido:");
         jPanel1.add(jLabel4);
@@ -245,7 +255,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbCancelar);
-        jbCancelar.setBounds(10, 300, 90, 23);
+        jbCancelar.setBounds(10, 300, 110, 23);
 
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +264,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbGuardar);
-        jbGuardar.setBounds(430, 300, 100, 23);
+        jbGuardar.setBounds(410, 300, 120, 23);
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -435,17 +445,16 @@ public class AbmPersona extends javax.swing.JFrame {
 
         jcbFechaNoRecordar.setText("No recordarme este cumpleaños");
         jcbFechaNoRecordar.setToolTipText("");
-        jcbFechaNoRecordar.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jPanel1.add(jcbFechaNoRecordar);
-        jcbFechaNoRecordar.setBounds(320, 120, 200, 20);
+        jcbFechaNoRecordar.setBounds(310, 120, 220, 20);
 
-        jLabel5.setText("Fecha Nacimiento:");
+        jLabel5.setText("Fecha Nacimiento :");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(10, 120, 110, 20);
 
         jcbFechaDesconocida.setText("No lo sé");
         jPanel1.add(jcbFechaDesconocida);
-        jcbFechaDesconocida.setBounds(230, 120, 100, 20);
+        jcbFechaDesconocida.setBounds(220, 120, 90, 20);
 
         jbLimpiar.setText("Limpiar");
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +463,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbLimpiar);
-        jbLimpiar.setBounds(110, 300, 72, 23);
+        jbLimpiar.setBounds(130, 300, 110, 23);
 
         jLabel6.setText("Nombre:");
         jPanel1.add(jLabel6);
@@ -467,7 +476,6 @@ public class AbmPersona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        
         if(!control.revisarInputValidoCampos(this)){
             return;
         }
@@ -482,14 +490,14 @@ public class AbmPersona extends javax.swing.JFrame {
             //y reemplazarlo por el guardado del nuevo.
         }
         
-        persona.setFechaNacimiento(UtilFechas.obtenerFechaHoy()); //TODO: Corregir fecha
+        persona.setFechaNacimiento(LocalDate.parse(jtxtFormattedFechaNacimiento.getText().trim(), UtilFechas.FORMATO_DATETIME));
         
-        persona.setNombre(control.CAMPOS_INPUT_ESTANDAR.get("Nombre").getText());
-        persona.setApellido(control.CAMPOS_INPUT_ESTANDAR.get("Apellido").getText());
+        persona.setNombre(jtxtNombre.getText());
+        persona.setApellido(jtxtApellido.getText());
         
         
-        persona.setNoSeCumpleanios(control.CAMPOS_CHECKBOX.get("NoSeCumpleanios").isSelected());
-        persona.setRecordarCumpleanios(control.CAMPOS_CHECKBOX.get("RecordarCumpleanios").isSelected());
+        persona.setNoSeCumpleanios(jcbFechaDesconocida.isSelected());
+        persona.setNoRecordarCumpleanios(jcbFechaNoRecordar.isSelected());
         
         if(jrbSexoHombre.isSelected()){
             persona.setGenero(PersonaSrv.GENERO_HOMBRE);
@@ -597,12 +605,28 @@ public class AbmPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_jbTelefonoEliminarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        UtilControlVentanas.volver(this);
+        cerrar();
     }//GEN-LAST:event_jbCancelarActionPerformed
 
+    private boolean banderaCerrar = false;
+    private void cerrar(){
+        if(!banderaCerrar){
+            banderaCerrar = true;
+            FlujoVentanas.volver(this);
+        }
+    } 
+    
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        UtilControlVentanas.volver(this);
+        cerrar();
     }//GEN-LAST:event_formWindowClosed
+
+     private String MENSAJE_FECHA = "dia/mes/año";
+    
+    private void jtxtFormattedFechaNacimientoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtFormattedFechaNacimientoFocusGained
+        if(jtxtFormattedFechaNacimiento.getText().trim().equals(MENSAJE_FECHA)){
+            jtxtFormattedFechaNacimiento.setValue(null);
+        }
+    }//GEN-LAST:event_jtxtFormattedFechaNacimientoFocusGained
 
     private void ventanaNuevaDireccion(){
         AbmDireccionDialog ventana = new AbmDireccionDialog(this, true, 0);

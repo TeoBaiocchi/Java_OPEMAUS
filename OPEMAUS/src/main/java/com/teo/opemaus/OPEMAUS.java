@@ -54,6 +54,15 @@ public class OPEMAUS {
         
         VERSION.add("0.0.9");
         VERSION_CHANGELOG.add("Correcciones visuales y aviso de cerrar el programa.");
+        
+        VERSION.add("0.0.10");
+        VERSION_CHANGELOG.add("Añadido de tareas");
+        
+        VERSION.add("0.0.11");
+        VERSION_CHANGELOG.add("Añadido de listado de tareas");
+        
+        VERSION.add("0.1.0");
+        VERSION_CHANGELOG.add("Funcionalidades basicas COMPLETAS");
     }
     
         

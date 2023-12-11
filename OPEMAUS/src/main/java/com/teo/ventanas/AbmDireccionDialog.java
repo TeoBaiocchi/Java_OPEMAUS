@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class AbmDireccionDialog extends javax.swing.JDialog {
     
-    private UtilGraficoVentanas monitor = new UtilGraficoVentanas(); //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
+    
     private UtilControlCampos control = new UtilControlCampos();
     private Frame padre;
     public Direccion direccion = null;
@@ -36,10 +36,10 @@ public class AbmDireccionDialog extends javax.swing.JDialog {
     
     private void llenarCamposParaEdicion(){
         this.direccion = DireccionSrv.obtenerById(ID);
-        control.CAMPOS_INPUT_ESTANDAR.get("Calle").setText(direccion.getCalle());
-        control.CAMPOS_INPUT_ESTANDAR.get("Nro").setText(direccion.getNro());
-        control.CAMPOS_INPUT_ESTANDAR.get("Piso").setText(direccion.getPiso());
-        control.CAMPOS_INPUT_TEXTAREA.get("Observaciones").setText(direccion.getObservaciones());
+        jtxtCalle.setText(direccion.getCalle());
+        jtxtNro.setText(direccion.getNro());
+        jtxtPiso.setText(direccion.getPiso());
+        jtxtObservaciones.setText(direccion.getObservaciones());
     }
     
     private void inicializar(){
@@ -56,7 +56,7 @@ public class AbmDireccionDialog extends javax.swing.JDialog {
     }
     
     public Direccion mostrarDialogEsperarResultado(){
-        monitor.resizearDialog(this, padre, jPanel1);
+        UtilGraficoVentanas.resizearDialog(this, padre, jPanel1);
         this.setVisible(true);
         return direccion;
     }
@@ -164,10 +164,10 @@ public class AbmDireccionDialog extends javax.swing.JDialog {
             DireccionSrv.eliminar(ID); //"Editar" es efectivamente eliminar el registro anterior, 
             //y reemplazarlo por el guardado del nuevo.
         }
-        direccion.setCalle(control.CAMPOS_INPUT_ESTANDAR.get("Calle").getText());
-        direccion.setPiso(control.CAMPOS_INPUT_ESTANDAR.get("Piso").getText());
-        direccion.setNro(control.CAMPOS_INPUT_ESTANDAR.get("Nro").getText());
-        direccion.setObservaciones(control.CAMPOS_INPUT_TEXTAREA.get("Observaciones").getText());
+        direccion.setCalle(jtxtCalle.getText());
+        direccion.setPiso(jtxtPiso.getText());
+        direccion.setNro(jtxtNro.getText());
+        direccion.setObservaciones(jtxtObservaciones.getText());
         DireccionSrv.guardar(direccion);
         this.direccion = direccion;
        

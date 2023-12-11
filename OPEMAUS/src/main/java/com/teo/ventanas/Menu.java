@@ -1,10 +1,13 @@
 package com.teo.ventanas;
 
+import com.teo.modelos.Tarea;
+import com.teo.service.TareaSrv;
 import com.teo.util.UtilControlTablas;
-import com.teo.util.UtilControlVentanas;
-import com.teo.util.UtilFechas;
+import com.teo.util.FlujoVentanas;
 import com.teo.util.UtilGraficoVentanas;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,15 +31,36 @@ public class Menu extends javax.swing.JFrame {
 
     private void inicializarCalendario(){
         
-        jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"FECHA", "Actividades"}));
+        jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"id", "Asunto", "Dias Restantes", "Fecha", "Prioridad"}));
+        UtilControlTablas.setearAnchoTablaPorcentajes100(new int[]{0, 25, 25, 25, 25}, jtCalendario);
         DefaultTableModel modelo = (DefaultTableModel) jtCalendario.getModel();
-        for(LocalDate fecha : UtilFechas.obtenerRangoDesdeHoy(30)){
-            Object[] fila = new Object[2];
-            fila[0] = fecha;
-            fila[1] = "Libre";
+        for(Tarea tarea : TareaSrv.obtenerTodasTareasFechadas()){
+            Object[] fila = new Object[5];
+            fila[0] = tarea.getId();
+            fila[1] = tarea.getAsunto();
+            
+            if(tarea.isFechaLimite()){
+                fila[2] = "QUEDAN " + tarea.getFecha().until(LocalDate.now(), ChronoUnit.DAYS) * (-1);
+            } else {
+                fila[2] = "Faltan " + tarea.getFecha().until(LocalDate.now(), ChronoUnit.DAYS) * (-1);
+            }
+            
+            fila[3] = tarea.getFecha();
+            fila[4] = tarea.getPrioridad();
             modelo.addRow(fila);
-        }    
+        }
+        
+        jtCalendarioSinFecha.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"id", "Asunto", "Prioridad"}));
+        DefaultTableModel modeloNoFechado = (DefaultTableModel) jtCalendarioSinFecha.getModel();
+        for(Tarea tarea : TareaSrv.obtenerTodasTareasSinFecha()){
+            Object[] fila = new Object[3];
+            fila[0] = tarea.getId();
+            fila[1] = tarea.getAsunto();
+            fila[2] = tarea.getPrioridad();
+            modeloNoFechado.addRow(fila);
+        } 
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,26 +75,26 @@ public class Menu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jspCalendario = new javax.swing.JScrollPane();
+        jspCalendario1 = new javax.swing.JScrollPane();
+        jtCalendarioSinFecha = new javax.swing.JTable();
+        jspCalendario2 = new javax.swing.JScrollPane();
         jtCalendario = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Log In");
+        setTitle("OPEM - Menu Principal");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Calendario Interactivo");
+        jLabel1.setText("Calendario-Agenda Interactivo");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(11, 14, 370, 15);
+        jLabel1.setBounds(11, 14, 740, 30);
 
         jButton1.setText("Listado Personas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -79,11 +103,16 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(240, 60, 120, 23);
+        jButton1.setBounds(290, 60, 170, 50);
 
         jButton2.setText("Nueva Tarea");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
-        jButton2.setBounds(20, 110, 120, 23);
+        jButton2.setBounds(620, 60, 120, 50);
 
         jButton3.setText("Nueva Persona");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -92,32 +121,55 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(20, 60, 120, 23);
+        jButton3.setBounds(20, 60, 120, 50);
 
-        jspCalendario.setViewportView(jtCalendario);
+        jspCalendario1.setViewportView(jtCalendarioSinFecha);
 
-        jPanel1.add(jspCalendario);
-        jspCalendario.setBounds(20, 180, 360, 250);
+        jPanel1.add(jspCalendario1);
+        jspCalendario1.setBounds(390, 170, 360, 310);
+
+        jtCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtCalendarioMouseReleased(evt);
+            }
+        });
+        jspCalendario2.setViewportView(jtCalendario);
+
+        jPanel1.add(jspCalendario2);
+        jspCalendario2.setBounds(20, 170, 360, 310);
+
+        jLabel2.setText("Tareas sin Fecha");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(390, 150, 360, 16);
+
+        jLabel3.setText("Tareas Proximas ");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(20, 150, 360, 16);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 400, 450);
+        jPanel1.setBounds(0, 0, 770, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_MENU);
-        UtilControlVentanas.abrirAbmPersonas(this);
+        FlujoVentanas.setearFrameParaVolver(FlujoVentanas.FRAME_MENU);
+        FlujoVentanas.abrirAbmPersonas(this);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        UtilControlVentanas.setearFrameParaVolver(UtilControlVentanas.VOLVER_MENU);
-        UtilControlVentanas.abrirListado(this);
+        FlujoVentanas.setearFrameParaVolver(FlujoVentanas.FRAME_MENU);
+        FlujoVentanas.abrirListado(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        FlujoVentanas.setearFrameParaVolver(FlujoVentanas.FRAME_MENU);
+        FlujoVentanas.abrirAbmTareas(this);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    }//GEN-LAST:event_formWindowClosed
+    private void jtCalendarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCalendarioMouseReleased
+        seleccionarEditarTarea(jtCalendario);
+    }//GEN-LAST:event_jtCalendarioMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -125,8 +177,23 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jspCalendario;
+    private javax.swing.JScrollPane jspCalendario1;
+    private javax.swing.JScrollPane jspCalendario2;
     private javax.swing.JTable jtCalendario;
+    private javax.swing.JTable jtCalendarioSinFecha;
     // End of variables declaration//GEN-END:variables
+
+    private void seleccionarEditarTarea(JTable tabla) {
+        int fila = tabla.getSelectedRow();
+        if(fila != -1){
+            int id = Integer.parseInt(((DefaultTableModel)tabla.getModel()).getValueAt(fila, 0).toString());
+            if(id != -1){
+                FlujoVentanas.setearFrameParaVolver(FlujoVentanas.FRAME_MENU);
+                FlujoVentanas.abrirAbmTareas(this, id);
+            }
+        }
+    }
 }

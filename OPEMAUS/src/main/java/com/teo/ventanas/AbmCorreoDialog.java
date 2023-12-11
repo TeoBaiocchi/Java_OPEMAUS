@@ -13,7 +13,6 @@ import javax.swing.JFrame;
  */
 public class AbmCorreoDialog extends javax.swing.JDialog {
     
-    private UtilGraficoVentanas monitor = new UtilGraficoVentanas(); //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
     private UtilControlCampos control = new UtilControlCampos();
     private Frame padre;
     public Correo correo = null;
@@ -32,9 +31,9 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
     
     private void llenarCamposParaEdicion(){
         this.correo = CorreoSrv.obtenerById(ID);
-        control.CAMPOS_INPUT_ESTANDAR.get("Correo").setText(correo.getCorreo());
-        control.CAMPOS_CHECKBOX.get("Personal").setSelected(correo.isPersonal());
-        control.CAMPOS_INPUT_TEXTAREA.get("Observaciones").setText(correo.getObservaciones());
+        jtxtCorreo.setText(correo.getCorreo());
+        jcbPersonal.setSelected(correo.isPersonal());
+        jtxtObservaciones.setText(correo.getObservaciones());
     }
     
     private void inicializar(){
@@ -52,7 +51,7 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
     }
     
     public Correo mostrarDialogEsperarResultado(){
-        monitor.resizearDialog(this, padre, jPanel1);
+        UtilGraficoVentanas.resizearDialog(this, padre, jPanel1);
         this.setVisible(true);
         return correo;
     }

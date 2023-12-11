@@ -160,7 +160,7 @@ public class UtilGraficoVentanas {
     
     }
 
-    public void resizearDialog(JDialog dialog, Frame padre, JPanel panelReferencia) {
+    public static void resizearDialog(JDialog dialog, Frame padre, JPanel panelReferencia) {
         dialog.setBounds(0, 0, panelReferencia.getWidth(), panelReferencia.getHeight() + padre.getInsets().top + padre.getInsets().bottom);
         dialog.setLocationRelativeTo(padre);
     }

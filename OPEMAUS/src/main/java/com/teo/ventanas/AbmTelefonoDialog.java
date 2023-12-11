@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class AbmTelefonoDialog extends javax.swing.JDialog {
     
-    private UtilGraficoVentanas monitor = new UtilGraficoVentanas(); //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
+    
     private UtilControlCampos control = new UtilControlCampos();
     private Frame padre;
     public Telefono telefono = null;
@@ -36,10 +36,10 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
     
     private void llenarCamposParaEdicion(){
         this.telefono = TelefonoSrv.obtenerById(ID);
-        control.CAMPOS_INPUT_ESTANDAR.get("Nro").setText(telefono.getNro());
-        control.CAMPOS_CHECKBOX.get("Personal").setSelected(telefono.isPersonal());
-        control.CAMPOS_COMBOBOX.get("Tipo").setSelectedItem(telefono.getTipo());
-        control.CAMPOS_INPUT_TEXTAREA.get("Observaciones").setText(telefono.getObservaciones());
+        jtxtNro.setText(telefono.getNro());
+        jcbPersonal.setSelected(telefono.isPersonal());
+        jComboTipo.setSelectedItem(telefono.getTipo());
+        jtxtObservaciones.setText(telefono.getObservaciones());
     }
     
     private void inicializar(){
@@ -49,7 +49,7 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
         control.CAMPOS_CHECKBOX.put("Personal", jcbPersonal);
        
         
-        UtilControlCampos.setearItemsCombo( control.CAMPOS_COMBOBOX.get("Tipo"), new String[]{"Celular", "Fijo", "Oficina", "Negocio", "Fax"});
+        UtilControlCampos.setearItemsCombo( jComboTipo, new String[]{"Celular", "Fijo", "Oficina", "Negocio", "Fax"});
         
         if(ID == 0){
             jLabelTitulo.setText("Nuevo Telefono");
@@ -61,7 +61,7 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
     }
     
     public Telefono mostrarDialogEsperarResultado(){
-        monitor.resizearDialog(this, padre, jPanel1);
+        UtilGraficoVentanas.resizearDialog(this, padre, jPanel1);
         this.setVisible(true);
         return telefono;
     }
@@ -166,10 +166,10 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
             //y reemplazarlo por el guardado del nuevo.
         }
 
-        telefono.setNro(control.CAMPOS_INPUT_ESTANDAR.get("Nro").getText());
-        telefono.setPersonal(control.CAMPOS_CHECKBOX.get("Personal").isSelected());
-        telefono.setTipo(control.CAMPOS_COMBOBOX.get("Tipo").getSelectedItem().toString());
-        telefono.setObservaciones(control.CAMPOS_INPUT_TEXTAREA.get("Observaciones").getText());
+        telefono.setNro(jtxtNro.getText());
+        telefono.setPersonal(jcbPersonal.isSelected());
+        telefono.setTipo(jComboTipo.getSelectedItem().toString());
+        telefono.setObservaciones(jtxtObservaciones.getText());
         TelefonoSrv.guardar(telefono);
         this.telefono = telefono;
        

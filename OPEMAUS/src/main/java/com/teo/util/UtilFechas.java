@@ -3,6 +3,7 @@ package com.teo.util;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.text.DateFormatter;
@@ -14,11 +15,12 @@ import javax.swing.text.DefaultFormatterFactory;
 public class UtilFechas {
     
     //Te juro que los uso todos. Es importante que sean coherentes entre si
-    public static String FORMATO_DISPLAY_STRING = "dd/MM/yyyy";
-    public static String FORMATO_DISPLAY_MASK = "##/##/####";
-    public static DateFormat FORMATO_DISPLAY = new SimpleDateFormat(FORMATO_DISPLAY_STRING);
-    public static DateFormatter FORMATTER_DISPLAY = new DateFormatter(FORMATO_DISPLAY);
-    public static DefaultFormatterFactory FORMATTER_FACTORY = new DefaultFormatterFactory(FORMATTER_DISPLAY, FORMATTER_DISPLAY, FORMATTER_DISPLAY);
+    public static final String FORMATO_STRING = "dd/MM/yyyy";
+    public static final DateTimeFormatter FORMATO_DATETIME = DateTimeFormatter.ofPattern(FORMATO_STRING);
+    public static final String FORMATO_MASK = "##/##/####";
+    public static final DateFormat FORMATO_DATE = new SimpleDateFormat(FORMATO_STRING);
+    public static final DateFormatter FORMATTER_DATE = new DateFormatter(FORMATO_DATE);
+    public static final DefaultFormatterFactory FORMATTER_FACTORY = new DefaultFormatterFactory(FORMATTER_DATE, FORMATTER_DATE, FORMATTER_DATE);
     
 
     public static LocalDate obtenerFechaHoy(){

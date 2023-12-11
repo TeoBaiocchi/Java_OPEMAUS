@@ -2,20 +2,18 @@ package com.teo.ventanas;
 
 import com.teo.util.UtilGraficoVentanas;
 import java.awt.Color;
-import javax.swing.JPanel;
 
 /**
  * @author Teo
  */
 public class JDialogAvisoGenerico extends javax.swing.JDialog {
 
-    UtilGraficoVentanas monitor;
     
     public JDialogAvisoGenerico(java.awt.Frame parent, boolean modal, String texto, Color color){
         super(parent, modal);
         initComponents();
         jlabelTexto.setText(texto);
-        monitor.resizearDialog(this, parent, jPanel1);
+        UtilGraficoVentanas.resizearDialog(this, parent, jPanel1);
         jPanel1.setBackground(color);
         this.setVisible(true);
     }
@@ -47,7 +45,7 @@ public class JDialogAvisoGenerico extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jbOK);
-        jbOK.setBounds(160, 70, 72, 23);
+        jbOK.setBounds(160, 70, 80, 23);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 400, 100);
