@@ -13,15 +13,28 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UtilControlTablas {
     
-    
-    public static void setearAnchoTablaPorcentajes100(int[] porcentajes, JTable tabla){  
-        int fraccion = tabla.getWidth()/100;
-        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        for(int i = 0; i < porcentajes.length; i++){
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(fraccion*porcentajes[i]);
+        private static final int MIN_VALOR_TABLE_WIDTH = 15;
+        private static final int MAX_VALOR_TABLE_WIDTH = 2147483647;
+
+        public static void setTableWidth(javax.swing.JTable table, int[] valores) {
+        int a = 0;
+        int min = table.getModel().getColumnCount();
+        if (valores.length < min) {
+            min = valores.length;
         }
-        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        for (a = 0; a < min; a++) {
+            if (valores[a] == 0) { //Con esto oculta la columna totalmente
+                table.getColumnModel().getColumn(a).setMinWidth(0);
+                table.getColumnModel().getColumn(a).setMaxWidth(0);
+                table.getColumnModel().getColumn(a).setPreferredWidth(0);
+            } else {
+                table.getColumnModel().getColumn(a).setMinWidth(MIN_VALOR_TABLE_WIDTH);
+                table.getColumnModel().getColumn(a).setMaxWidth(MAX_VALOR_TABLE_WIDTH);
+                table.getColumnModel().getColumn(a).setPreferredWidth(valores[a]);
+            }
+        }
     }
+
     
      /**
      * De la misma forma que la version no-generic de esta funcion, recibe un array de titulos y

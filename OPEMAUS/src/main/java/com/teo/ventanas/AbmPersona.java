@@ -119,6 +119,16 @@ public class AbmPersona extends javax.swing.JFrame {
         jtTelefonos.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Nro", "Tipo", "Obs."}));
         jtCorreos.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Correo", "Obs."}));
         jtOtros.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"Notas"}));
+    
+        int fraccion = jtDirecciones.getWidth() / 100;
+        UtilControlTablas.setTableWidth(jtDirecciones, new int[]{0, fraccion * 30, fraccion * 15, fraccion * 15, fraccion * 40});
+    
+        fraccion = jtTelefonos.getWidth() / 100;
+        UtilControlTablas.setTableWidth(jtTelefonos, new int[]{0, fraccion * 50, fraccion * 20, fraccion * 30});
+        
+        fraccion = jtCorreos.getWidth() / 100;
+        UtilControlTablas.setTableWidth(jtCorreos, new int[]{0, fraccion * 40, fraccion * 60});
+        
     }
     
     private void generarControlVentana(){

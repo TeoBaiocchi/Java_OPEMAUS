@@ -42,7 +42,9 @@ public class ListadoPersonas extends javax.swing.JFrame {
     private final int TABLA_LISTADO_NOMBREAPELLIDO = 1;
     private final int TABLA_LISTADO_SEXO = 2;
     private void generarTablas(){
+        int fraccion = jtListado.getWidth() / 100;
         jtListado.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"ID", "Nombre y Apellido", "Sexo"}));
+        UtilControlTablas.setTableWidth(jtListado, new int[]{0, fraccion * 100, 0});
     }
     
     private void generarControlCampos(){
@@ -82,6 +84,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Listado");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);

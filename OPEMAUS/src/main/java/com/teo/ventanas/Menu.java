@@ -32,7 +32,8 @@ public class Menu extends javax.swing.JFrame {
     private void inicializarCalendario(){
         
         jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"id", "Asunto", "Dias Restantes", "Fecha", "Prioridad"}));
-        UtilControlTablas.setearAnchoTablaPorcentajes100(new int[]{0, 25, 25, 25, 25}, jtCalendario);
+        int fraccion = jtCalendario.getWidth() / 100;
+        UtilControlTablas.setTableWidth(jtCalendario, new int[]{0, fraccion * 50, fraccion * 20, fraccion * 20 , fraccion * 10});
         DefaultTableModel modelo = (DefaultTableModel) jtCalendario.getModel();
         for(Tarea tarea : TareaSrv.obtenerTodasTareasFechadas()){
             Object[] fila = new Object[5];
@@ -51,6 +52,8 @@ public class Menu extends javax.swing.JFrame {
         }
         
         jtCalendarioSinFecha.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"id", "Asunto", "Prioridad"}));
+        fraccion = jtCalendarioSinFecha.getWidth() / 100;
+        UtilControlTablas.setTableWidth(jtCalendarioSinFecha, new int[]{0, fraccion * 75, fraccion * 25});
         DefaultTableModel modeloNoFechado = (DefaultTableModel) jtCalendarioSinFecha.getModel();
         for(Tarea tarea : TareaSrv.obtenerTodasTareasSinFecha()){
             Object[] fila = new Object[3];
