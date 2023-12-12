@@ -66,6 +66,9 @@ public class OPEMAUS {
     
         VERSION.add("0.1.1");
         VERSION_CHANGELOG.add("Correcciones de visualizacion de tablas y ventanas no resizeable");
+        
+        VERSION.add("0.1.1");
+        VERSION_CHANGELOG.add("Re-escritura total del posicionador de ventanas para que funcione multiplataforma");
     }
     
         
