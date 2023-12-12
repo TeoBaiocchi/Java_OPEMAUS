@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
  */
 public class Logueo extends javax.swing.JFrame {
     
-    UtilGraficoVentanas utilVentana; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
+    
 
     public Logueo() {
         initComponents();
@@ -21,8 +21,8 @@ public class Logueo extends javax.swing.JFrame {
         jLabel1.setText("Version: " + OPEMAUS.obtenerUltimaVersion());
     }   
     private void inicializar(){
-        utilVentana = new UtilGraficoVentanas(this, jPanel1, 0, 0);
-        utilVentana.redimensionarReposicionarVentana();
+        
+        UtilGraficoVentanas.reshapeadorVentanas(this, jPanel1, 0, 0);
         setearVersion();
     }
 

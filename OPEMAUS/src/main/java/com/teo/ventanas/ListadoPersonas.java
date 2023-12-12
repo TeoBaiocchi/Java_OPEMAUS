@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListadoPersonas extends javax.swing.JFrame {
 
-    UtilGraficoVentanas monitor;
     UtilControlCampos control = new UtilControlCampos();
     
     public ListadoPersonas() {
@@ -29,8 +28,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
     }
     
     private void inicializar(){
-        monitor = new UtilGraficoVentanas(this, jPanel1, 0, 0);
-        monitor.redimensionarReposicionarVentana();
+        UtilGraficoVentanas.reshapeadorVentanas(this, jPanel1, 0, 0);
         generarControlCampos();
         UtilControlCampos.setearItemsCombo(control.CAMPOS_COMBOBOX.get("Sexo"), new String[]{"Cualquiera", "Hombre", "Mujer", "Otro"});
         generarTablas();

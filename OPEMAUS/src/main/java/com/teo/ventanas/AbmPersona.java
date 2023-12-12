@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AbmPersona extends javax.swing.JFrame {
     
-    UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
     UtilControlCampos control = new UtilControlCampos();
     private int ID = 0;
     
@@ -35,8 +34,7 @@ public class AbmPersona extends javax.swing.JFrame {
     }
     
     private void inicializar(){
-        monitor = new UtilGraficoVentanas(this, jPanel1, 0, 0);
-        monitor.redimensionarReposicionarVentana();
+        UtilGraficoVentanas.reshapeadorVentanas(this, jPanel1, 0, 0);
         generarControlVentana();
         generarTablas();
         jLabelTitulo.setText("Nueva Persona");
@@ -63,7 +61,7 @@ public class AbmPersona extends javax.swing.JFrame {
             jrbSexoOtro.setSelected(true);
         } 
         
-       jtxtFormattedFechaNacimiento.setText(persona.getFechaNacimiento().toString());
+       jtxtFormattedFechaNacimiento.setText(persona.getFechaNacimiento().format(UtilFechas.FORMATO_DATETIME));
         
         for(String id : persona.getIdsCorreos()){
             Object[] fila = new Object[3];

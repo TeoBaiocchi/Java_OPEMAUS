@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Menu extends javax.swing.JFrame {
     
-    UtilGraficoVentanas monitor; //No puedo instanciarla aca porque requiere un "this", que no puede usarse hasta construir esta clase per se
+    
     
     public Menu() {
         initComponents();
@@ -23,8 +23,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     private void inicializar(){
-        monitor = new UtilGraficoVentanas(this, jPanel1, 0, 0);
-        monitor.redimensionarReposicionarVentana();
+        UtilGraficoVentanas.reshapeadorVentanas(this, jPanel1, 0, 0);
         inicializarCalendario();
         this.setVisible(true);
     }

@@ -14,7 +14,6 @@ import java.time.LocalDate;
  */
 public class AbmTareas extends javax.swing.JFrame {
 
-    UtilGraficoVentanas monitor;
     UtilControlCampos control = new UtilControlCampos();
     
     public static int ID = 0;
@@ -26,8 +25,7 @@ public class AbmTareas extends javax.swing.JFrame {
     }
     
     private void inicializar(){
-        monitor = new UtilGraficoVentanas(this, jPanel1, 0, 0);
-        monitor.redimensionarReposicionarVentana();
+        UtilGraficoVentanas.reshapeadorVentanas(this, jPanel1, 0, 0);
         generarControlVentana();
         llenarCamposEdicion();
         this.setVisible(true);

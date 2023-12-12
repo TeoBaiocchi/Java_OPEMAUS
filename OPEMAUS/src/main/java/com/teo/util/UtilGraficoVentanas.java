@@ -16,149 +16,132 @@ import javax.swing.JPanel;
  */
 public class UtilGraficoVentanas {
     
-    Frame frame;
-    Dialog dialog;
-    Frame padreDialog;
-    JPanel panelReferencia; 
-    int posX; 
-    int posY;
-    
-    public void setPosX(int x){
-        if(x < 0){
-            posX = 0;
-        }
-    }
-    
-    public void setPosY(int y){
-        if(y < 0){
-            posY = 0;
-        }
-    }
-    
-    public UtilGraficoVentanas(){
-    }
-    
-    public UtilGraficoVentanas(Frame frame, JPanel panelReferencia, int posX, int posY){
-        this.frame = frame;
-        this.panelReferencia = panelReferencia;
-        setPosX(posX);
-        setPosY(posY);
-    }
-    public UtilGraficoVentanas(Dialog dialog, JPanel panelReferencia, Frame padre){
-        this.dialog = dialog;
-        this.padreDialog = padre;
-        this.panelReferencia = panelReferencia;
-        setPosX(0);
-        setPosY(0);
-    }
-    
     /**
-     * Obtiene el alto del monitor principal. No dependiente de como este instanciado el objeto
+     * Dado un frame, obtiene el graphics device (monitor) al que pertenezca, y obtiene la altura del mismo mediante otra funcion.
+     * @param frame
      * @return 
      */
-    public static int obtenerScreenHeightDefault(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.height;
+    private static int obtenerScreenHeightMonitorDinamicoFrame(JFrame frame){
+       GraphicsDevice gd = frame.getGraphicsConfiguration().getDevice();
+       return obtenerScreenHeightMonitorDinamico(gd);
+    }
+    public static int obtenerScreenHeightMonitorDinamicoFrame(JDialog frame){
+       GraphicsDevice gd = frame.getGraphicsConfiguration().getDevice();
+       return obtenerScreenHeightMonitorDinamico(gd);
     }
     
-    /**
-     * Obtiene el ancho del monitor principal. No dependiente de como este instanciado el objeto
+    private static int obtenerScreenHeightMonitorDinamico(GraphicsDevice gd){
+       return gd.getDisplayMode().getHeight();
+    }
+    
+
+     /**
+     * Dado un frame, obtiene el graphics device (monitor) al que pertenezca, y obtiene el ancho del mismo mediante otra funcion.
+     * @param frame
      * @return 
      */
-    public static int obtenerScreenWidthDefault(){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.width;
+    private static int obtenerScreenWidthMonitorDinamicoFrame(JFrame frame){
+       GraphicsDevice gd = frame.getGraphicsConfiguration().getDevice();
+       return obtenerScreenWidthMonitorDinamico(gd);
     }
-    
-    
-    /**
-     * Obtiene el GraphicsDevice del frame/dialog de la instancia, y devuelve su altura
-     * (toma el monitor en el que se encuentra la esquina superior izquierda de la
-     * ventana)
-     */
-    public int obtenerScreenHeightMonitorDinamico(){
-        
-        GraphicsDevice gd = null;
-        
-        if(frame != null){
-            gd = frame.getGraphicsConfiguration().getDevice();
-        } else if(dialog != null){
-            gd = dialog.getGraphicsConfiguration().getDevice();
-        }
-        
-        if(gd != null){
-            return gd.getDisplayMode().getHeight();
-        } else {
-            return 0;
-        }
-        
+    public static int obtenerScreenWidthMonitorDinamicoFrame(JDialog frame){
+       GraphicsDevice gd = frame.getGraphicsConfiguration().getDevice();
+       return obtenerScreenWidthMonitorDinamico(gd);
     }
 
-    /**
-     * Obtiene el GraphicsDevice del frame de la instancia, y devuelve su ancho
-     * (toma el monitor en el que se encuentra la esquina superior izquierda de la
-     * ventana)
-     */
-    public int obtenerScreenWidthMonitorDinamico(){
-        GraphicsDevice gd = frame.getGraphicsConfiguration().getDevice();
-        return gd.getDisplayMode().getWidth();
+    private static int obtenerScreenWidthMonitorDinamico(GraphicsDevice gd){
+       return gd.getDisplayMode().getWidth();
     }
 
-    
-    /**
-     * Redimensiona la ventana segun el panel de referencia y las posiciones del objeto.
-     * Primero repinta un posX inicial para obtener el monitor correcto, luego calcula
-     * las dimensiones de la pantalla y las esquinas a desestimar de la pantalla y frame
-     * para poder centrarlo correctamente en los ejes.
-     * Si el ejeX o el ejeY son 0, la ventana será centrada en ese eje.
-     * WIP: En caso de que las posiciones XY esten indicadas, pero causen que la ventana
-     * clipee en alguna direccion, reposicionar de forma que quede al borde pero sin clipear
-     * IMPORTANTE: El aspecto de redimensión de ventana solo es util ante NULL LAYOUT
-     */
-    public void redimensionarReposicionarVentanaEscalonadamente(){
-    }
-    public void redimensionarReposicionarVentana(){    
-        frame.setBounds(posX, 0, 0, 0);
+    public static void repaintearFrame(JFrame frame, int posX, int posY){
+        //Es necesario pintar el frame en la posicion en la que va a estar (actualizar el x), para poder determinar el monitor al que pertenece.
+        frame.setBounds(posX, posY, 0, 0);
+        frame.setVisible(true);
+        frame.setVisible(false);
         frame.repaint();
+    }
+ 
+    /**
+     * Tomando un frame, y un panel general que contenga todo el contenido de la ventana, 
+     * hace un reshape de la ventana ajustado a todas las variables relevantes.
+     * IMPORTANTE: Si se enva posY o posX = 0, centra ese eje de la ventana en el monitor donde se dispong el frame.
+     * @param frame
+     * @param panelReferencia
+     * @param posX 
+     * @param posY
+     */
+    public static void reshapeadorVentanas(JFrame frame, JPanel panelReferencia, int posX, int posY){
+        int screenHeight;
+        int screenWidth;
+        screenHeight = obtenerScreenHeightMonitorDinamicoFrame(frame);
+        screenWidth = obtenerScreenWidthMonitorDinamicoFrame(frame);
         
-        //Es necesario pintar el frame en la posicion en la que va a estar, para poder determinar el monitor al que pertenece
-        int screenHeight = obtenerScreenHeightMonitorDinamico(); 
-        int screenWidth = obtenerScreenWidthMonitorDinamico();
-        
-        Insets pantallaBarraInsets = obtenerInsetsBarraTareas();
+        Insets pantallaBarraInsets = obtenerInsetsBarraTareas(frame);
         Insets frameInsets = frame.getInsets();
 
         int alto = panelReferencia.getHeight() + frameInsets.top + frameInsets.bottom;
         int ancho = panelReferencia.getWidth() + frameInsets.right + frameInsets.left;
+        //En caso de que alguno de estos dos campos venga en "0", centramos sobre ese eje.
         if(posY == 0){
             posY = (screenHeight - alto - pantallaBarraInsets.bottom - pantallaBarraInsets.top)/2; 
         }
+        
         if(posX == 0){
             posX = (screenWidth - ancho - pantallaBarraInsets.left - pantallaBarraInsets.right)/2;
         }
         
+        
+        int clipeoVertical = screenHeight - (posY + alto + pantallaBarraInsets.bottom + pantallaBarraInsets.top);
+        if(clipeoVertical < 0){
+            posY = posY + clipeoVertical;
+            if(posY <= 0){
+                posY = 2;
+            }
+        }
+        
         frame.setBounds(posX, posY, ancho, alto);
     }
+    public static void reshapeadorVentanas(JFrame frame, JPanel panelReferencia){
+        reshapeadorVentanas(frame, panelReferencia, 0, 0);
+    }
     
-    public Insets obtenerInsetsBarraTareas(){
+    
+    public static void dimensionadorDialog(JDialog frame, JPanel panelReferencia, Frame padre){
+        //En caso de un dialog no necesito reposicionarlo, porque va a tener un padre y un setlocation relative to.
+        int posX = padre.getX();
+        frame.setBounds(posX, 0, 0, 0);
+        frame.repaint();
+        //Es necesario pintar el frame en la posicion en la que va a estar (actualizar el x), para poder determinar el monitor al que pertenece.
+        
+        Insets pantallaBarraInsets = obtenerInsetsBarraTareas(frame);
+        Insets frameInsets = frame.getInsets();
+
+        int alto = panelReferencia.getHeight() + frameInsets.top + frameInsets.bottom;
+        int ancho = panelReferencia.getWidth() + frameInsets.right + frameInsets.left;
+        //En caso de que alguno de estos dos campos venga en "0", centramos sobre ese eje.
+
+        frame.setBounds(0, 0, ancho, alto);
+        frame.setLocationRelativeTo(padre);
+    }
+    
+    public static Insets obtenerInsetsBarraTareas(JFrame frame){
+        GraphicsConfiguration gc = frame.getGraphicsConfiguration();
+        return Toolkit.getDefaultToolkit().getScreenInsets(gc);
+    }
+    public static Insets obtenerInsetsBarraTareas(JDialog frame){
         GraphicsConfiguration gc = frame.getGraphicsConfiguration();
         return Toolkit.getDefaultToolkit().getScreenInsets(gc);
     }
     
-    public int obtenerAltoUtilizableMaximoEnMonitorDinamico(){
+    public static int obtenerAltoUtilizableMaximoEnMonitorDinamico(JFrame frame){
         int calculo = 0;
-        Insets barraTareas = obtenerInsetsBarraTareas();
+        int altura = obtenerScreenHeightMonitorDinamicoFrame(frame);
+        Insets barraTareas = obtenerInsetsBarraTareas(frame);
         Insets frameInsets = frame.getInsets();
-        calculo = obtenerScreenHeightMonitorDinamico() - barraTareas.bottom - barraTareas.top - frameInsets.top - frameInsets.bottom;
+        calculo = altura - barraTareas.bottom - barraTareas.top - frameInsets.top - frameInsets.bottom;
         return calculo;
     }
-    
-    public void centrarFrameSobreFrame(JFrame nuevoFrame){
-        //Paso 1: Verificar y obtener "jpanel1" si es el primer hijo del nuevo frame.
-        //Paso 2: Corroborar que el nuevo frame sea, en ambas dimensiones, menor al frame padre
-        //Paso 2: instanciar un nuevo UtilGraficoVentanas para ese nuevo frame con todos los datos
-    
-    }
+
 
     public static void resizearDialog(JDialog dialog, Frame padre, JPanel panelReferencia) {
         dialog.setBounds(0, 0, panelReferencia.getWidth(), panelReferencia.getHeight() + padre.getInsets().top + padre.getInsets().bottom);
