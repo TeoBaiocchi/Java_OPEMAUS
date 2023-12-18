@@ -92,7 +92,7 @@ public class Logueo extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtContraKeyReleased
 
     private void checkPass(){
-        if(jtxtContra.getText().trim().equals("")){
+        if(jtxtContra.getText().trim().equals("aus2023")){
             FlujoVentanas.setearFrameParaVolver(FlujoVentanas.CERRAR_PROGRAMA);
             FlujoVentanas.abrirMenu(this);
         }

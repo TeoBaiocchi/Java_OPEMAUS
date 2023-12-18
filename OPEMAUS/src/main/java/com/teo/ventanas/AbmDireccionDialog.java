@@ -86,7 +86,7 @@ public class AbmDireccionDialog extends javax.swing.JDialog {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("placeholder");
         jPanel1.add(jLabelTitulo);
-        jLabelTitulo.setBounds(10, 10, 220, 16);
+        jLabelTitulo.setBounds(10, 10, 220, 17);
 
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +95,7 @@ public class AbmDireccionDialog extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jbCancelar);
-        jbCancelar.setBounds(10, 220, 90, 23);
+        jbCancelar.setBounds(10, 220, 130, 23);
 
         jbAceptar.setText("Aceptar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,21 +111,22 @@ public class AbmDireccionDialog extends javax.swing.JDialog {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(0, 40, 50, 20);
         jPanel1.add(jtxtCalle);
-        jtxtCalle.setBounds(50, 40, 190, 22);
+        jtxtCalle.setBounds(50, 40, 190, 23);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel4.setText("N°: ");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(0, 70, 50, 20);
         jPanel1.add(jtxtNro);
-        jtxtNro.setBounds(50, 70, 50, 22);
+        jtxtNro.setBounds(50, 70, 50, 23);
 
         jLabel5.setText("Observaciones :");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(20, 100, 210, 20);
         jPanel1.add(jtxtPiso);
-        jtxtPiso.setBounds(190, 70, 50, 22);
+        jtxtPiso.setBounds(190, 70, 50, 23);
 
+        jLabel6.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel6.setText("Piso/Timbre :");
         jPanel1.add(jLabel6);

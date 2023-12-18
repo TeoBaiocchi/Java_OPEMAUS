@@ -63,7 +63,6 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
         jLabelTitulo = new javax.swing.JLabel();
         jbCancelar = new javax.swing.JButton();
         jbAceptar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jtxtCorreo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jtxtObservaciones = new javax.swing.JTextArea();
@@ -78,8 +77,9 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("placeholder");
         jPanel1.add(jLabelTitulo);
-        jLabelTitulo.setBounds(10, 10, 220, 16);
+        jLabelTitulo.setBounds(10, 10, 220, 17);
 
+        jbCancelar.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +87,7 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jbCancelar);
-        jbCancelar.setBounds(10, 200, 90, 23);
+        jbCancelar.setBounds(10, 200, 100, 19);
 
         jbAceptar.setText("Aceptar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,17 +97,12 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
         });
         jPanel1.add(jbAceptar);
         jbAceptar.setBounds(120, 200, 90, 23);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel4.setText("Correo : ");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(0, 40, 50, 20);
         jPanel1.add(jtxtCorreo);
-        jtxtCorreo.setBounds(50, 40, 150, 22);
+        jtxtCorreo.setBounds(20, 40, 180, 23);
 
         jLabel5.setText("Observaciones :");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(20, 100, 90, 20);
+        jLabel5.setBounds(20, 100, 180, 20);
 
         jtxtObservaciones.setColumns(20);
         jtxtObservaciones.setRows(5);
@@ -117,7 +112,7 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
 
         jcbPersonal.setText("Correo Personal");
         jPanel1.add(jcbPersonal);
-        jcbPersonal.setBounds(50, 70, 150, 20);
+        jcbPersonal.setBounds(20, 70, 180, 21);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 220, 240);
@@ -168,7 +163,6 @@ public class AbmCorreoDialog extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;

@@ -61,7 +61,10 @@ public class AbmPersona extends javax.swing.JFrame {
             jrbSexoOtro.setSelected(true);
         } 
         
-       jtxtFormattedFechaNacimiento.setText(persona.getFechaNacimiento().format(UtilFechas.FORMATO_DATETIME));
+       if(!jcbFechaDesconocida.isSelected()){
+           jtxtFormattedFechaNacimiento.setText(persona.getFechaNacimiento().format(UtilFechas.FORMATO_DATETIME));
+       } 
+       
         
         for(String id : persona.getIdsCorreos()){
             Object[] fila = new Object[3];
@@ -211,19 +214,21 @@ public class AbmPersona extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
         jPanel1.add(jtxtNombre);
-        jtxtNombre.setBounds(80, 50, 190, 22);
+        jtxtNombre.setBounds(100, 50, 190, 23);
 
+        jLabelTitulo.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("placeholder");
         jPanel1.add(jLabelTitulo);
-        jLabelTitulo.setBounds(10, 10, 530, 16);
+        jLabelTitulo.setBounds(0, 10, 550, 17);
         jPanel1.add(jtxtApellido);
-        jtxtApellido.setBounds(80, 80, 190, 22);
+        jtxtApellido.setBounds(100, 80, 190, 23);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Sexo");
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel3.setText("Genero :");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(290, 40, 210, 20);
+        jLabel3.setBounds(0, 110, 100, 20);
 
         jtxtFormattedFechaNacimiento.setFormatterFactory(UtilFechas.FORMATTER_FACTORY);
         jtxtFormattedFechaNacimiento.setText("dia/mes/año");
@@ -234,27 +239,29 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jtxtFormattedFechaNacimiento);
-        jtxtFormattedFechaNacimiento.setBounds(120, 120, 90, 22);
+        jtxtFormattedFechaNacimiento.setBounds(310, 80, 100, 23);
 
-        jLabel4.setText("Apellido:");
+        jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel4.setText("Apellido : ");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 80, 70, 16);
+        jLabel4.setBounds(0, 80, 100, 17);
 
         jbgGenero.add(jrbSexoHombre);
         jrbSexoHombre.setText("Hombre");
         jPanel1.add(jrbSexoHombre);
-        jrbSexoHombre.setBounds(290, 70, 90, 21);
+        jrbSexoHombre.setBounds(100, 110, 90, 21);
 
         jbgGenero.add(jrbSexoOtro);
         jrbSexoOtro.setSelected(true);
         jrbSexoOtro.setText("Otro");
         jPanel1.add(jrbSexoOtro);
-        jrbSexoOtro.setBounds(460, 70, 70, 21);
+        jrbSexoOtro.setBounds(100, 140, 70, 21);
 
         jbgGenero.add(jrbSexoMujer);
         jrbSexoMujer.setText("Mujer");
         jPanel1.add(jrbSexoMujer);
-        jrbSexoMujer.setBounds(380, 70, 80, 21);
+        jrbSexoMujer.setBounds(200, 110, 90, 21);
 
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +270,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbCancelar);
-        jbCancelar.setBounds(10, 300, 110, 23);
+        jbCancelar.setBounds(10, 340, 120, 23);
 
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +279,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbGuardar);
-        jbGuardar.setBounds(410, 300, 120, 23);
+        jbGuardar.setBounds(420, 340, 120, 23);
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -294,7 +301,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jbDireccionEliminar);
-        jbDireccionEliminar.setBounds(430, 80, 80, 23);
+        jbDireccionEliminar.setBounds(430, 80, 90, 23);
 
         jbDireccionNueva.setText("Nueva");
         jbDireccionNueva.addActionListener(new java.awt.event.ActionListener() {
@@ -303,7 +310,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jbDireccionNueva);
-        jbDireccionNueva.setBounds(430, 10, 80, 23);
+        jbDireccionNueva.setBounds(430, 10, 90, 23);
 
         jbDireccionEditar.setText("Editar");
         jbDireccionEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +319,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jbDireccionEditar);
-        jbDireccionEditar.setBounds(430, 45, 80, 23);
+        jbDireccionEditar.setBounds(430, 45, 90, 23);
 
         jPanelDireccion.add(jPanel2);
         jPanel2.setBounds(0, 0, 520, 110);
@@ -337,7 +344,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jbTelefonoEliminar);
-        jbTelefonoEliminar.setBounds(430, 80, 80, 23);
+        jbTelefonoEliminar.setBounds(430, 80, 90, 23);
 
         jbTelefonoNuevo.setText("Nuevo");
         jbTelefonoNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -346,7 +353,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jbTelefonoNuevo);
-        jbTelefonoNuevo.setBounds(430, 10, 80, 23);
+        jbTelefonoNuevo.setBounds(430, 10, 90, 23);
 
         jbTelefonoEditar.setText("Editar");
         jbTelefonoEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -355,7 +362,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jbTelefonoEditar);
-        jbTelefonoEditar.setBounds(430, 45, 80, 23);
+        jbTelefonoEditar.setBounds(430, 45, 90, 23);
 
         jPanelTelefono.add(jPanel3);
         jPanel3.setBounds(0, 0, 520, 110);
@@ -380,7 +387,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jbCorreoEliminar);
-        jbCorreoEliminar.setBounds(430, 80, 80, 23);
+        jbCorreoEliminar.setBounds(430, 80, 90, 23);
 
         jbCorreoNuevo.setText("Nuevo");
         jbCorreoNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -389,7 +396,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jbCorreoNuevo);
-        jbCorreoNuevo.setBounds(430, 10, 80, 23);
+        jbCorreoNuevo.setBounds(430, 10, 90, 23);
 
         jbCorreoEditar.setText("Editar");
         jbCorreoEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +405,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel5.add(jbCorreoEditar);
-        jbCorreoEditar.setBounds(430, 45, 80, 23);
+        jbCorreoEditar.setBounds(430, 45, 90, 23);
 
         jPanelCorreo.add(jPanel5);
         jPanel5.setBounds(0, 0, 520, 110);
@@ -423,7 +430,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jbOtrosEliminar);
-        jbOtrosEliminar.setBounds(430, 80, 80, 23);
+        jbOtrosEliminar.setBounds(430, 80, 90, 23);
 
         jbOtrosNueva.setText("Nueva");
         jbOtrosNueva.addActionListener(new java.awt.event.ActionListener() {
@@ -432,7 +439,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jbOtrosNueva);
-        jbOtrosNueva.setBounds(430, 10, 80, 23);
+        jbOtrosNueva.setBounds(430, 10, 90, 23);
 
         jbOtrosEditar.setText("Editar");
         jbOtrosEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -441,7 +448,7 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jbOtrosEditar);
-        jbOtrosEditar.setBounds(430, 45, 80, 23);
+        jbOtrosEditar.setBounds(430, 45, 90, 23);
 
         jPanelOtros.add(jPanel4);
         jPanel4.setBounds(0, 0, 520, 110);
@@ -449,20 +456,24 @@ public class AbmPersona extends javax.swing.JFrame {
         jTabbedPane1.addTab("Otros/Observaciones", jPanelOtros);
 
         jPanel1.add(jTabbedPane1);
-        jTabbedPane1.setBounds(10, 150, 520, 140);
+        jTabbedPane1.setBounds(10, 190, 530, 140);
 
+        jcbFechaNoRecordar.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         jcbFechaNoRecordar.setText("No recordarme este cumpleaños");
         jcbFechaNoRecordar.setToolTipText("");
         jPanel1.add(jcbFechaNoRecordar);
-        jcbFechaNoRecordar.setBounds(310, 120, 220, 20);
+        jcbFechaNoRecordar.setBounds(310, 110, 240, 20);
 
-        jLabel5.setText("Fecha Nacimiento :");
+        jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Fecha Nacimiento");
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(10, 120, 110, 20);
+        jLabel5.setBounds(310, 50, 210, 20);
 
         jcbFechaDesconocida.setText("No lo sé");
         jPanel1.add(jcbFechaDesconocida);
-        jcbFechaDesconocida.setBounds(220, 120, 90, 20);
+        jcbFechaDesconocida.setBounds(410, 80, 130, 21);
 
         jbLimpiar.setText("Limpiar");
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -471,14 +482,16 @@ public class AbmPersona extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbLimpiar);
-        jbLimpiar.setBounds(130, 300, 110, 23);
+        jbLimpiar.setBounds(140, 340, 120, 23);
 
-        jLabel6.setText("Nombre:");
+        jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel6.setText("Nombre : ");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(10, 50, 70, 16);
+        jLabel6.setBounds(0, 50, 100, 17);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 540, 330);
+        jPanel1.setBounds(0, 0, 550, 370);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -498,7 +511,10 @@ public class AbmPersona extends javax.swing.JFrame {
             //y reemplazarlo por el guardado del nuevo.
         }
         
-        persona.setFechaNacimiento(LocalDate.parse(jtxtFormattedFechaNacimiento.getText().trim(), UtilFechas.FORMATO_DATETIME));
+        if(!jcbFechaDesconocida.isSelected()){
+            persona.setFechaNacimiento(LocalDate.parse(jtxtFormattedFechaNacimiento.getText().trim(), UtilFechas.FORMATO_DATETIME));
+        }
+        
         
         persona.setNombre(jtxtNombre.getText());
         persona.setApellido(jtxtApellido.getText());

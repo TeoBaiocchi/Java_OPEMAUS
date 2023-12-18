@@ -103,6 +103,7 @@ public class AbmTareas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Nueva / Modificacion Tarea");
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -115,7 +116,7 @@ public class AbmTareas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbVolver);
-        jbVolver.setBounds(10, 280, 90, 30);
+        jbVolver.setBounds(10, 280, 110, 30);
 
         jbAceptar.setText("Aceptar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +125,7 @@ public class AbmTareas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbAceptar);
-        jbAceptar.setBounds(252, 280, 90, 30);
+        jbAceptar.setBounds(232, 280, 110, 30);
 
         jtextareaDetalle.setColumns(20);
         jtextareaDetalle.setRows(5);
@@ -135,17 +136,19 @@ public class AbmTareas extends javax.swing.JFrame {
 
         jLabel1.setText("Prioridad : ");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 90, 80, 16);
+        jLabel1.setBounds(10, 90, 80, 17);
 
-        jLabel2.setText("Fecha :");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel2.setText("Fecha : ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 40, 70, 16);
+        jLabel2.setBounds(0, 40, 70, 17);
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("Asunto : ");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 10, 90, 16);
+        jLabel3.setBounds(0, 10, 70, 17);
         jPanel1.add(jtxtAsunto);
-        jtxtAsunto.setBounds(70, 10, 280, 22);
+        jtxtAsunto.setBounds(70, 10, 280, 23);
 
         jtxtFormattedFecha.setFormatterFactory(UtilFechas.FORMATTER_FACTORY);
         jtxtFormattedFecha.setText("dia/mes/año");
@@ -160,7 +163,7 @@ public class AbmTareas extends javax.swing.JFrame {
 
         jcbFechaLimite.setText("Fecha limite");
         jPanel1.add(jcbFechaLimite);
-        jcbFechaLimite.setBounds(170, 60, 110, 20);
+        jcbFechaLimite.setBounds(170, 60, 130, 21);
 
         jcbSinFecha.setText("Sin Fecha");
         jcbSinFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -169,18 +172,18 @@ public class AbmTareas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jcbSinFecha);
-        jcbSinFecha.setBounds(170, 40, 73, 20);
+        jcbSinFecha.setBounds(170, 40, 120, 21);
 
         buttonGroup1.add(jrb0);
         jrb0.setText("Min.");
         jPanel1.add(jrb0);
-        jrb0.setBounds(10, 110, 50, 21);
+        jrb0.setBounds(10, 110, 70, 21);
 
         buttonGroup1.add(jrb1);
         jrb1.setSelected(true);
         jrb1.setText("1");
         jPanel1.add(jrb1);
-        jrb1.setBounds(70, 110, 50, 21);
+        jrb1.setBounds(80, 110, 50, 21);
 
         buttonGroup1.add(jrb2);
         jrb2.setText("2");
@@ -190,21 +193,21 @@ public class AbmTareas extends javax.swing.JFrame {
         buttonGroup1.add(jrb3);
         jrb3.setText("3");
         jPanel1.add(jrb3);
-        jrb3.setBounds(190, 110, 50, 21);
+        jrb3.setBounds(180, 110, 50, 21);
 
         buttonGroup1.add(jrb4);
         jrb4.setText("4");
         jPanel1.add(jrb4);
-        jrb4.setBounds(250, 110, 50, 21);
+        jrb4.setBounds(230, 110, 50, 21);
 
         buttonGroup1.add(jrb5);
         jrb5.setText("5");
         jPanel1.add(jrb5);
-        jrb5.setBounds(310, 110, 50, 21);
+        jrb5.setBounds(280, 110, 50, 21);
 
         jLabel4.setText("Detalle : ");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 140, 80, 16);
+        jLabel4.setBounds(10, 140, 80, 17);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 360, 320);

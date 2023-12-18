@@ -47,6 +47,7 @@ public class TextoDialog extends javax.swing.JDialog {
         jPanel1.add(jLabelTitulo);
         jLabelTitulo.setBounds(10, 10, 200, 20);
 
+        jbCancelar.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

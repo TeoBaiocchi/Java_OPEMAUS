@@ -119,6 +119,9 @@ public class UtilControlTablas {
     public static int obtenerValorNumericoDeTabla(JTable tabla, int columna){
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         int fila = tabla.getSelectedRow();
+        if(tabla.getSelectedRow() == -1){
+            return -1;
+        }
         return Integer.parseInt(modelo.getValueAt(fila, columna).toString());
     }
 }

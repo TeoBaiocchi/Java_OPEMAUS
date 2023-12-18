@@ -69,6 +69,9 @@ public class OPEMAUS {
         
         VERSION.add("0.1.1");
         VERSION_CHANGELOG.add("Re-escritura total del posicionador de ventanas para que funcione multiplataforma");
+        
+        VERSION.add("0.1.2");
+        VERSION_CHANGELOG.add("Cambios pre presentacion inicial");
     }
     
         

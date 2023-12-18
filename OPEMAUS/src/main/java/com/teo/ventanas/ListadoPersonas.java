@@ -95,12 +95,12 @@ public class ListadoPersonas extends javax.swing.JFrame {
         jspListado.setViewportView(jtListado);
 
         jPanel1.add(jspListado);
-        jspListado.setBounds(10, 150, 470, 260);
+        jspListado.setBounds(10, 170, 420, 240);
 
         jlabelResultados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlabelResultados.setText("Listado Personas");
         jPanel1.add(jlabelResultados);
-        jlabelResultados.setBounds(10, 10, 470, 16);
+        jlabelResultados.setBounds(10, 10, 430, 17);
 
         jtxtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -108,7 +108,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jtxtApellido);
-        jtxtApellido.setBounds(90, 60, 160, 22);
+        jtxtApellido.setBounds(90, 60, 160, 23);
 
         jtxtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -116,18 +116,18 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jtxtNombre);
-        jtxtNombre.setBounds(90, 30, 160, 22);
+        jtxtNombre.setBounds(90, 30, 160, 23);
         jPanel1.add(jComboSexo);
-        jComboSexo.setBounds(90, 90, 160, 22);
+        jComboSexo.setBounds(90, 90, 160, 23);
 
-        jbBuscar.setText("Editar");
+        jbBuscar.setText("Editar Seleccionado");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
             }
         });
         jPanel1.add(jbBuscar);
-        jbBuscar.setBounds(350, 80, 120, 23);
+        jbBuscar.setBounds(220, 140, 210, 23);
 
         jbVolver.setText("Volver");
         jbVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +136,7 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbVolver);
-        jbVolver.setBounds(10, 420, 75, 23);
+        jbVolver.setBounds(10, 420, 140, 23);
 
         jbLimpiar.setText("Limpiar");
         jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,22 +145,22 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbLimpiar);
-        jbLimpiar.setBounds(350, 50, 120, 23);
+        jbLimpiar.setBounds(10, 140, 120, 23);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel1.setText("Sexo : ");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 90, 80, 16);
+        jLabel1.setBounds(10, 90, 80, 17);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel2.setText("Nombre : ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 30, 80, 16);
+        jLabel2.setBounds(10, 30, 80, 17);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("Apellido  : ");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 60, 80, 16);
+        jLabel3.setBounds(10, 60, 80, 17);
 
         jbBuscar1.setText("Buscar");
         jbBuscar1.addActionListener(new java.awt.event.ActionListener() {
@@ -169,10 +169,10 @@ public class ListadoPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbBuscar1);
-        jbBuscar1.setBounds(260, 50, 75, 50);
+        jbBuscar1.setBounds(270, 40, 110, 60);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 490, 460);
+        jPanel1.setBounds(0, 0, 450, 450);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

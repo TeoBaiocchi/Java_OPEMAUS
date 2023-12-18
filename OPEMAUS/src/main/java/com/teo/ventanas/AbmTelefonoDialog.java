@@ -90,8 +90,9 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("placeholder");
         jPanel1.add(jLabelTitulo);
-        jLabelTitulo.setBounds(10, 10, 220, 16);
+        jLabelTitulo.setBounds(10, 10, 220, 17);
 
+        jbCancelar.setFont(new java.awt.Font("Liberation Sans", 0, 11)); // NOI18N
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +100,7 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jbCancelar);
-        jbCancelar.setBounds(10, 240, 90, 23);
+        jbCancelar.setBounds(10, 240, 100, 23);
 
         jbAceptar.setText("Aceptar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,11 +116,11 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(0, 40, 50, 20);
         jPanel1.add(jtxtNro);
-        jtxtNro.setBounds(50, 40, 150, 22);
+        jtxtNro.setBounds(50, 40, 150, 23);
 
         jLabel5.setText("Observaciones :");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(20, 130, 90, 20);
+        jLabel5.setBounds(20, 130, 180, 20);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel6.setText("Tipo : ");
@@ -132,11 +133,16 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
         jPanel1.add(jtxtObservaciones);
         jtxtObservaciones.setBounds(20, 160, 180, 60);
         jPanel1.add(jComboTipo);
-        jComboTipo.setBounds(50, 70, 150, 22);
+        jComboTipo.setBounds(50, 70, 150, 23);
 
-        jcbPersonal.setText("Telefono Personal");
+        jcbPersonal.setText("Nro. Personal");
+        jcbPersonal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPersonalActionPerformed(evt);
+            }
+        });
         jPanel1.add(jcbPersonal);
-        jcbPersonal.setBounds(50, 100, 150, 20);
+        jcbPersonal.setBounds(50, 100, 160, 21);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 220, 270);
@@ -183,6 +189,10 @@ public class AbmTelefonoDialog extends javax.swing.JDialog {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
     }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jcbPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPersonalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbPersonalActionPerformed
 
 
 

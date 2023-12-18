@@ -30,7 +30,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void inicializarCalendario(){
         
-        jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"id", "Asunto", "Dias Restantes", "Fecha", "Prioridad"}));
+        jtCalendario.setModel(UtilControlTablas.createDefaultTableModelGeneric(new String[]{"id", "Asunto", "Dias", "Fecha", "Prioridad"}));
         int fraccion = jtCalendario.getWidth() / 100;
         UtilControlTablas.setTableWidth(jtCalendario, new int[]{0, fraccion * 50, fraccion * 20, fraccion * 20 , fraccion * 10});
         DefaultTableModel modelo = (DefaultTableModel) jtCalendario.getModel();
@@ -96,7 +96,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Calendario-Agenda Interactivo");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(11, 14, 740, 30);
+        jLabel1.setBounds(11, 14, 770, 30);
 
         jButton1.setText("Listado Personas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +105,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(290, 60, 170, 50);
+        jButton1.setBounds(290, 60, 210, 50);
 
         jButton2.setText("Nueva Tarea");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +114,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(620, 60, 120, 50);
+        jButton2.setBounds(580, 60, 160, 50);
 
         jButton3.setText("Nueva Persona");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -123,12 +123,12 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(20, 60, 120, 50);
+        jButton3.setBounds(30, 60, 190, 50);
 
         jspCalendario1.setViewportView(jtCalendarioSinFecha);
 
         jPanel1.add(jspCalendario1);
-        jspCalendario1.setBounds(390, 170, 360, 310);
+        jspCalendario1.setBounds(440, 170, 340, 310);
 
         jtCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -138,18 +138,18 @@ public class Menu extends javax.swing.JFrame {
         jspCalendario2.setViewportView(jtCalendario);
 
         jPanel1.add(jspCalendario2);
-        jspCalendario2.setBounds(20, 170, 360, 310);
+        jspCalendario2.setBounds(20, 170, 410, 310);
 
         jLabel2.setText("Tareas sin Fecha");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(390, 150, 360, 16);
+        jLabel2.setBounds(440, 150, 240, 17);
 
         jLabel3.setText("Tareas Proximas ");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 150, 360, 16);
+        jLabel3.setBounds(20, 150, 310, 17);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 770, 500);
+        jPanel1.setBounds(0, 0, 790, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -172,7 +172,13 @@ public class Menu extends javax.swing.JFrame {
     private void jtCalendarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCalendarioMouseReleased
         seleccionarEditarTarea(jtCalendario);
     }//GEN-LAST:event_jtCalendarioMouseReleased
-
+    
+    private void eliminarTarea(JTable tabla){
+//        int id = UtilControlTablas.obtenerValorNumericoDeTabla(tabla, 0);
+//        if(id != -1){
+//            TareaSrv.eliminar(id);
+//        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
