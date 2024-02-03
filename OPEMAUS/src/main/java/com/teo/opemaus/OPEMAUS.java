@@ -72,6 +72,10 @@ public class OPEMAUS {
         
         VERSION.add("0.1.2");
         VERSION_CHANGELOG.add("Cambios pre presentacion inicial");
+        
+        VERSION.add("1.0.0");
+        VERSION_CHANGELOG.add("Release! Presentado en diciembre 2023 en el AUS y aprobado con 10.");
+        
     }
     
         
