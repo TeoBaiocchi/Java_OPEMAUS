@@ -72,6 +72,9 @@ public class OPEMAUS {
         
         VERSION.add("0.1.2");
         VERSION_CHANGELOG.add("Cambios pre presentacion inicial");
+        
+        VERSION.add("1.0.0");
+        VERSION_CHANGELOG.add("Primer release! Presentado como proyecto, aprobado con 10");
     }
     
         
