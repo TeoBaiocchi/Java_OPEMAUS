@@ -1,8 +1,5 @@
 package com.teo.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.teo.modelos.Persona;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,12 +17,16 @@ import java.util.List;
  */
 public class UtilArchivos {
     
-    public static String DIRECTORIO_RAIZ = System.getProperty("user.home") + File.separator + "OPEMDATA";
-    public static String DIRECTORIO_PERSONAS = "MODELOS" + File.separator + "PERSONAS";
-    public static String DIRECTORIO_DIRECCIONES = "MODELOS" + File.separator + "DIRECCIONES";
-    public static String DIRECTORIO_TELEFONOS = "MODELOS" + File.separator + "TELEFONOS";
-    public static String DIRECTORIO_CORREOS = "MODELOS" + File.separator + "CORREOS";
-    public static String DIRECTORIO_TAREAS = "MODELOS" + File.separator + "TAREAS";
+    //public static String DIRECTORIO_RAIZ = System.getProperty("user.home") + File.separator + "OPEMDATA";
+    public static String DIRECTORIO_RAIZ = "E:" + File.separator + "OPEMDATA";
+    public static String DIRECTORIO_PERSONAS = "REGISTROS_AGENDA" + File.separator + "PERSONAS";
+    public static String DIRECTORIO_DIRECCIONES = "REGISTROS_AGENDA" + File.separator + "DIRECCIONES";
+    public static String DIRECTORIO_TELEFONOS = "REGISTROS_AGENDA" + File.separator + "TELEFONOS";
+    public static String DIRECTORIO_CORREOS = "REGISTROS_AGENDA" + File.separator + "CORREOS";
+    public static String DIRECTORIO_TAREAS = "REGISTROS_AGENDA" + File.separator + "TAREAS";
+    public static String DIRECTORIO_REGISTRO_FISICO = "REGISTROS_INFORMACION_PERSONAL" + File.separator + "REGISTRO_FISICO";
+    public static String DIRECTORIO_REGISTRO_DIETA = "REGISTROS_INFORMACION_PERSONAL" + File.separator + "REGISTRO_DIETA";
+    public static String DIRECTORIO_REGISTRO_DIARIO = "REGISTROS_INFORMACION_PERSONAL" + File.separator + "REGISTRO_DIARIO";
     
     
     //Verifica que si o si exista el directorio base para trabajar.
@@ -55,7 +55,16 @@ public class UtilArchivos {
         if(!crearDirectorio(File.separator + DIRECTORIO_TAREAS)){
              bandera = false;
         }
-
+        if(!crearDirectorio(File.separator + DIRECTORIO_REGISTRO_FISICO)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_REGISTRO_DIARIO)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_REGISTRO_DIETA)){
+             bandera = false;
+        }
+       
         System.out.println("[LOG - INICIO] Verificacion completa!");
         return true;
     }
