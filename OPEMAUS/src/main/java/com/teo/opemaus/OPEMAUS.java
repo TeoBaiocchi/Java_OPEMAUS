@@ -76,6 +76,9 @@ public class OPEMAUS {
         VERSION.add("1.0.0");
         VERSION_CHANGELOG.add("Release! Presentado en diciembre 2023 en el AUS y aprobado con 10.");
         
+        VERSION.add("1.0.1");
+        VERSION_CHANGELOG.add("(Beta) Progreso en agregar funciones de registro de vida diaria (comida, ejercicio...)");
+        
     }
     
         

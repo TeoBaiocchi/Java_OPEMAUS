@@ -7,9 +7,9 @@ import java.util.HashMap;
  */
 public class UnidadSrv {
     
-    private static HashMap<Integer, String> UNIDADES;
+    private static HashMap<Integer, String> UNIDADES = new HashMap<>();
     
-    private static HashMap<Integer, String> HORARIOS;
+    private static HashMap<Integer, String> HORARIOS = new HashMap<>();
     
     static{
         UNIDADES.put(0, "Otro/Indefinido");
@@ -45,4 +45,14 @@ public class UnidadSrv {
         }
         return ret;
     }
+
+    public static HashMap<Integer, String> getUNIDADES() {
+        return UNIDADES;
+    }
+
+    public static HashMap<Integer, String> getHORARIOS() {
+        return HORARIOS;
+    }
+    
+    
 }

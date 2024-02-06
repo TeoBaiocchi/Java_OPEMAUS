@@ -24,6 +24,8 @@ public class UtilArchivos {
     public static String DIRECTORIO_TELEFONOS = "REGISTROS_AGENDA" + File.separator + "TELEFONOS";
     public static String DIRECTORIO_CORREOS = "REGISTROS_AGENDA" + File.separator + "CORREOS";
     public static String DIRECTORIO_TAREAS = "REGISTROS_AGENDA" + File.separator + "TAREAS";
+    public static String DIRECTORIO_COMIDA = "MODELOS" + File.separator + "COMIDA";
+    public static String DIRECTORIO_ACTIVIDADES = "MODELOS" + File.separator + "ACTIVIDADES";
     public static String DIRECTORIO_REGISTRO_FISICO = "REGISTROS_INFORMACION_PERSONAL" + File.separator + "REGISTRO_FISICO";
     public static String DIRECTORIO_REGISTRO_DIETA = "REGISTROS_INFORMACION_PERSONAL" + File.separator + "REGISTRO_DIETA";
     public static String DIRECTORIO_REGISTRO_DIARIO = "REGISTROS_INFORMACION_PERSONAL" + File.separator + "REGISTRO_DIARIO";
@@ -62,6 +64,12 @@ public class UtilArchivos {
              bandera = false;
         }
         if(!crearDirectorio(File.separator + DIRECTORIO_REGISTRO_DIETA)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_ACTIVIDADES)){
+             bandera = false;
+        }
+        if(!crearDirectorio(File.separator + DIRECTORIO_COMIDA)){
              bandera = false;
         }
        

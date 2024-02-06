@@ -6,7 +6,7 @@ package com.teo.modelos;
 public class Actividad {
     private int id;
     private String descripcion;
-    private String idUnidad;
+    private int idUnidad;
 
     public int getId() {
         return id;
@@ -24,13 +24,11 @@ public class Actividad {
         this.descripcion = descripcion;
     }
 
-    public String getIdUnidad() {
+    public int getIdUnidad() {
         return idUnidad;
     }
 
-    public void setIdUnidad(String idUnidad) {
+    public void setIdUnidad(int idUnidad) {
         this.idUnidad = idUnidad;
     }
-    
-    
 }

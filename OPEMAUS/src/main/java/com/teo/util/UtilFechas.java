@@ -23,6 +23,8 @@ public class UtilFechas {
     public static final DefaultFormatterFactory FORMATTER_FACTORY = new DefaultFormatterFactory(FORMATTER_DATE, FORMATTER_DATE, FORMATTER_DATE);
     
 
+    public static String MENSAJE_FECHA = "dia/mes/año";
+    
     public static LocalDate obtenerFechaHoy(){
        return LocalDate.now();
     }

@@ -215,9 +215,9 @@ public class AbmTareas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String MENSAJE_FECHA = "dia/mes/año";
+    
     private void jtxtFormattedFechaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtFormattedFechaFocusGained
-    if(jtxtFormattedFecha.getText().trim().equals(MENSAJE_FECHA)){
+    if(jtxtFormattedFecha.getText().trim().equals(UtilFechas.MENSAJE_FECHA)){
             jtxtFormattedFecha.setValue(null);
         }
     }//GEN-LAST:event_jtxtFormattedFechaFocusGained
@@ -233,7 +233,7 @@ public class AbmTareas extends javax.swing.JFrame {
         tarea.setDetalle(jtextareaDetalle.getText().trim());
         tarea.setFechaLimite(jcbFechaLimite.isSelected());
         
-        if(jcbSinFecha.isSelected() || jtxtFormattedFecha.getText().trim().equals("") || jtxtFormattedFecha.getText().trim().equals(MENSAJE_FECHA)){
+        if(jcbSinFecha.isSelected() || jtxtFormattedFecha.getText().trim().equals("") || jtxtFormattedFecha.getText().trim().equals(UtilFechas.MENSAJE_FECHA)){
             tarea.setFechaLimite(false);
             tarea.setSinFecha(true);
             tarea.setFecha(null);
