@@ -7,9 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 /**
  *
@@ -132,11 +136,13 @@ public class UtilArchivos {
     }
     
     
-
     public static List<String> obtenerArchivosEnDirectorioString(String path, boolean recortarExtension){
-        File dir = new File(DIRECTORIO_RAIZ + File.separator + path);
+        return obtenerArchivosEnDirectorioString(path, recortarExtension, true);
+    }
+ 
+    public static List<String> obtenerArchivosEnDirectorioString(String path, boolean recortarExtension, boolean agregarDirectorioRaiz){
         List<String> ret = new ArrayList<>();
-        for(File archivo : dir.listFiles()){
+        for(File archivo : obtenerArchivosEnDirectorio(path, agregarDirectorioRaiz)){
             if(recortarExtension){
                 ret.add(archivo.getName().substring(0, archivo.getName().lastIndexOf('.')));
             } else {
@@ -145,13 +151,26 @@ public class UtilArchivos {
         }
         return ret;
     }
+    
     public static List<File> obtenerArchivosEnDirectorio(String path){
-        File dir = new File(DIRECTORIO_RAIZ + File.separator + path);
+        return obtenerArchivosEnDirectorio(path, true);
+    }
+    public static List<File> obtenerArchivosEnDirectorio(String path, boolean incluirDirectorioRaiz){
+        
+        File dir;
+        if(incluirDirectorioRaiz){
+            dir = new File(DIRECTORIO_RAIZ + File.separator + path);    
+        } else {
+            dir = new File(path);
+        }
+                
         List<File> ret = new ArrayList<>();
         ret.addAll(Arrays.asList(dir.listFiles()));
+        Collections.sort(ret);
+        
         return ret;
     }
-    
+
     /**
      * Toma un archivo y devuelve sus lineas en un string.
      * De haber algun problema, devuelve lo que se haya podido leer, o string vacio.
@@ -179,5 +198,18 @@ public class UtilArchivos {
             return ret;
         }
         return ret;
+    }
+    
+    public static String seleccionarDirectorio(String pathBase, JFrame padre){
+        JFileChooser chooser = new JFileChooser(); 
+        chooser.setCurrentDirectory(new java.io.File(pathBase));
+        chooser.setDialogTitle("Seleccionar Directorio");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showOpenDialog(padre) == JFileChooser.APPROVE_OPTION) { 
+            return chooser.getSelectedFile().toString();
+        } else {
+            return "";
+        }
     }
 }

@@ -83,7 +83,7 @@ public class Menu extends javax.swing.JFrame {
         jtCalendario = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jbHubDiario = new javax.swing.JButton();
+        jbTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OPEM - Menu Principal");
@@ -149,14 +149,14 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(20, 150, 310, 16);
 
-        jbHubDiario.setText("HubDiario");
-        jbHubDiario.addActionListener(new java.awt.event.ActionListener() {
+        jbTest.setText("Visualizador Imagenes");
+        jbTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbHubDiarioActionPerformed(evt);
+                jbTestActionPerformed(evt);
             }
         });
-        jPanel1.add(jbHubDiario);
-        jbHubDiario.setBounds(30, 120, 190, 23);
+        jPanel1.add(jbTest);
+        jbTest.setBounds(290, 120, 210, 23);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 790, 500);
@@ -183,10 +183,10 @@ public class Menu extends javax.swing.JFrame {
         seleccionarEditarTarea(jtCalendario);
     }//GEN-LAST:event_jtCalendarioMouseReleased
 
-    private void jbHubDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHubDiarioActionPerformed
-        HubRegistroDiario.main();
+    private void jbTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTestActionPerformed
+        VisualizadorFotos.main();
         this.dispose();
-    }//GEN-LAST:event_jbHubDiarioActionPerformed
+    }//GEN-LAST:event_jbTestActionPerformed
     
     private void eliminarTarea(JTable tabla){
 //        int id = UtilControlTablas.obtenerValorNumericoDeTabla(tabla, 0);
@@ -203,7 +203,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jbHubDiario;
+    private javax.swing.JButton jbTest;
     private javax.swing.JScrollPane jspCalendario1;
     private javax.swing.JScrollPane jspCalendario2;
     private javax.swing.JTable jtCalendario;
